@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "helper_android"
+rootProject.name = "helper"
 include(":app")
  
