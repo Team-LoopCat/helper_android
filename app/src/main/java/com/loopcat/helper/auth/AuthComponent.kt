@@ -2,10 +2,8 @@ package com.loopcat.helper.auth
 
 import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -34,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import com.loopcat.helper.ui.InputPlaceholder
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray300
-import com.loopcat.helper.ui.theme.Gray400
 import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.Red

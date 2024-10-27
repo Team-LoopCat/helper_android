@@ -1,6 +1,5 @@
 package com.loopcat.helper.auth.login
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -80,7 +79,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             enable = buttonEnable,
             buttonText = stringResource(id = R.string.login),
             onClick = {
-                Log.d("click", "Login Button Click")
+                // 로그인
                 loginError = AuthErrorType.WRONG_ID_OR_PW
             }
         )
