@@ -20,21 +20,6 @@ import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 
 @Composable
-fun InputPlaceholder(
-    hint: String
-) {
-    Text(
-        text = hint,
-        style = TextStyle(
-            color = Gray400,
-            fontFamily = Pretendard,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp
-        )
-    )
-}
-
-@Composable
 fun HelperButton(
     modifier: Modifier = Modifier,
     enable: Boolean,
