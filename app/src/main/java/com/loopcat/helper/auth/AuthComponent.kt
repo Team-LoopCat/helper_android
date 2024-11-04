@@ -29,13 +29,28 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.loopcat.helper.ui.InputPlaceholder
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray300
+import com.loopcat.helper.ui.theme.Gray400
 import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.Red
 import com.loopcat.helper.ui.theme.White
+
+@Composable
+fun AuthInputPlaceholder(
+    hint: String
+) {
+    Text(
+        text = hint,
+        style = TextStyle(
+            color = Gray400,
+            fontFamily = Pretendard,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 15.sp
+        )
+    )
+}
 
 @Composable
 fun AuthTitle(
@@ -52,7 +67,7 @@ fun AuthTitle(
         ),
         modifier = modifier
             .padding(
-                top = 120.dp
+                top = 100.dp
             )
     )
 }
@@ -69,13 +84,13 @@ fun AuthInput(
             .padding(
                 start = 24.dp,
                 end = 24.dp,
-                top = 10.dp
+                top = 6.dp
             )
             .fillMaxWidth(),
         value = input,
         onValueChange = onValueChange,
         placeholder = {
-            InputPlaceholder(hint = hint)
+            AuthInputPlaceholder(hint = hint)
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
@@ -86,7 +101,13 @@ fun AuthInput(
             focusedBorderColor = Main,
             cursorColor = Main
         ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        textStyle = TextStyle(
+            color = Black,
+            fontFamily = Pretendard,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 15.sp
+        )
     )
 }
 
@@ -104,13 +125,13 @@ fun AuthPassword(
             .padding(
                 start = 24.dp,
                 end = 24.dp,
-                top = 12.dp
+                top = 6.dp
             )
             .fillMaxWidth(),
         value = input,
         onValueChange = onValueChange,
         placeholder = {
-            InputPlaceholder(hint = hint)
+            AuthInputPlaceholder(hint = hint)
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
@@ -140,7 +161,13 @@ fun AuthPassword(
             focusedBorderColor = Main,
             cursorColor = Main
         ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        textStyle = TextStyle(
+            color = Black,
+            fontFamily = Pretendard,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 15.sp
+        )
     )
 }
 
@@ -166,7 +193,7 @@ fun AuthErrorMessage(
             color = Red,
             fontFamily = Pretendard,
             fontWeight = FontWeight.Medium,
-            fontSize = 12.sp
+            fontSize = 10.sp
         )
     )
 }
