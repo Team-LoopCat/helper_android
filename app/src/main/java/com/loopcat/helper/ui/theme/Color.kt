@@ -2,7 +2,7 @@ package com.loopcat.helper.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-sealed class HelperColor(
+/*sealed class HelperColor(
     val main: Color,
     val main50: Color,
     val main100: Color,
@@ -46,4 +46,25 @@ sealed class HelperColor(
         black = Color(0xFF000000),
         white = Color(0xFFFFFFFF)
     )
-}
+}*/
+
+val Main = Color(0xFFFF9900)
+val Main50 = Color(0xFFFFE2B7)
+val Main100 = Color(0xFFFFBD5A)
+
+val Gray000 = Color(0xFFFDFDFD)
+val Gray100 = Color(0xFFEBEBEB)
+val Gray200 = Color(0xFFD3D3D3)
+val Gray300 = Color(0xFFBEBEBE)
+val Gray400 = Color(0xFFA7A7A7)
+val Gray500 = Color(0xFF929292)
+val Gray600 = Color(0xFF7C7C7C)
+val Gray700 = Color(0xFF505050)
+val Gray800 = Color(0xFF343434)
+val Gray900 = Color(0xFF121212)
+
+val Red = Color(0xFFEA2E33)
+val Blue = Color(0xFF2E41EA)
+val DialogBlue = Color(0xFF5EB3F7)
+val Black = Color(0xFF000000)
+val White = Color(0xFFFFFFFF)

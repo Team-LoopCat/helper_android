@@ -35,7 +35,7 @@ val Typography = Typography(
     */
 )
 
-val PretendardFamily = FontFamily(
+val Pretendard = FontFamily(
     listOf(
         Font(
             resId = R.font.pretendard_regular,
