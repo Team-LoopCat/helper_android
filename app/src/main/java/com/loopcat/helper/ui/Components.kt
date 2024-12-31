@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.ui.theme.Gray300
+import com.loopcat.helper.ui.theme.Gray400
 import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
@@ -54,4 +55,20 @@ fun HelperButton(
             )
         )
     }
+}
+
+@Composable
+fun InputPlaceHolder(
+    modifier: Modifier = Modifier,
+    hint: String
+) {
+    Text(
+        text = hint,
+        style = TextStyle(
+            color = Gray400,
+            fontFamily = Pretendard,
+            fontWeight = FontWeight.Medium,
+            fontSize = 16.sp
+        )
+    )
 }
