@@ -39,7 +39,7 @@ import com.loopcat.helper.ui.theme.White
 @Composable
 fun HelperAlertDialog(
     modifier: Modifier = Modifier,
-    content: String,
+    title: String,
     onClick: () -> Unit
 ) {
     Dialog(
@@ -63,7 +63,7 @@ fun HelperAlertDialog(
             ) {
                 Spacer(modifier = modifier.height(42.dp))
                 Text(
-                    text = content,
+                    text = title,
                     style = TextStyle(
                         fontFamily = Pretendard,
                         fontWeight = FontWeight.Medium,
