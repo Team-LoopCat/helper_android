@@ -5,8 +5,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -29,6 +33,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -211,6 +216,187 @@ fun LargeDropdown(
                 offset = IntOffset(
                     x = 0,
                     y = headerHeight + with(LocalDensity.current) { 30.dp.toPx() }.toInt()
+                ),
+                options = options,
+                onDismissRequest = {
+                    if (!isHeaderClicked) {
+                        isExpanded = false
+                    }
+                    isHeaderClicked = false
+                },
+                onOptionClick = { option ->
+                    onOptionSelected(option)
+                    isExpanded = false
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun SmallDropdownHeader(
+    modifier: Modifier = Modifier,
+    selectedOption: String,
+    isExpanded: Boolean,
+    onGloballyPositioned: (LayoutCoordinates) -> Unit,
+    onHeaderClick: () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .width(140.dp)
+            .wrapContentHeight()
+            .background(
+                color = White,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = Main,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(
+                end = 14.dp,
+                top = 10.dp,
+                bottom = 10.dp
+            )
+            .onGloballyPositioned { coordinates ->
+                onGloballyPositioned(coordinates)
+            }
+            .clickable {
+                onHeaderClick()
+            }
+    ) {
+        Text(
+            text = selectedOption,
+            style = TextStyle(
+                fontFamily = Pretendard,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 16.sp,
+                color = Main
+            ),
+            modifier = modifier
+                .align(Alignment.Center)
+                .padding(
+                    end = 12.dp
+                )
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.icon_dropdown),
+            contentDescription = "Dropdown Icon",
+            tint = Main,
+            modifier = modifier
+                .width(14.dp)
+                .align(Alignment.CenterEnd)
+                .rotate(if (isExpanded) 180f else 0f)
+        )
+    }
+}
+
+@Composable
+fun SmallDropdownMenuItem(
+    modifier: Modifier = Modifier,
+    index: Int,
+    option: String,
+    onOptionClick: () -> Unit
+) {
+    if (index != 0) {
+        HorizontalDivider(
+            thickness = 0.4.dp,
+            color = Gray400
+        )
+    }
+    Text(
+        text = option,
+        style = TextStyle(
+            fontFamily = Pretendard,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp,
+            color = Black,
+            textAlign = TextAlign.Center
+        ),
+        modifier = modifier
+            .width(140.dp)
+            .wrapContentHeight()
+            .padding(
+                top = 8.dp,
+                bottom = 8.dp
+            )
+            .clickable {
+                onOptionClick()
+            }
+    )
+}
+
+@Composable
+fun SmallDropdownMenu(
+    modifier: Modifier = Modifier,
+    offset: IntOffset,
+    options: List<String>,
+    onDismissRequest: () -> Unit,
+    onOptionClick: (String) -> Unit
+) {
+    Popup(
+        alignment = Alignment.TopCenter,
+        offset = offset,
+        onDismissRequest = onDismissRequest
+    ) {
+        LazyColumn(
+            modifier = modifier
+                .width(140.dp)
+                .wrapContentHeight()
+                .background(
+                    color = White,
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .border(
+                    width = 0.4.dp,
+                    color = Gray400,
+                    shape = RoundedCornerShape(8.dp)
+                )
+        ) {
+            itemsIndexed(options) { index, option ->
+                SmallDropdownMenuItem(
+                    index = index,
+                    option = option,
+                    onOptionClick = {
+                        onOptionClick(option)
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun SmallDropdown(
+    modifier: Modifier = Modifier,
+    options: List<String>,
+    selectedOption: String,
+    onOptionSelected: (String) -> Unit
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+    var isHeaderClicked by remember { mutableStateOf(false) }
+
+    var headerHeight by remember { mutableIntStateOf(0) }
+
+    Column {
+        SmallDropdownHeader(
+            selectedOption = selectedOption,
+            isExpanded = isExpanded,
+            onGloballyPositioned = { coordinates ->
+                headerHeight = coordinates.size.height
+            },
+            onHeaderClick = {
+                isExpanded = !isExpanded
+                isHeaderClicked = true
+            }
+        )
+
+        if (isExpanded) {
+            SmallDropdownMenu(
+                offset = IntOffset(
+                    x = 0,
+                    y = headerHeight + with(LocalDensity.current) { 22.dp.toPx() }.toInt()
                 ),
                 options = options,
                 onDismissRequest = {
