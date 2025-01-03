@@ -5,10 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -72,6 +69,9 @@ fun LargeDropdownHeader(
                 color = if (isCategory) Main else Gray300,
                 shape = RoundedCornerShape(8.dp)
             )
+            .clickable {
+                onHeaderClick()
+            }
             .padding(
                 start = 16.dp,
                 end = 16.dp,
@@ -80,9 +80,6 @@ fun LargeDropdownHeader(
             )
             .onGloballyPositioned { coordinates ->
                 onGloballyPositioned(coordinates)
-            }
-            .clickable {
-                onHeaderClick()
             }
     ) {
         Text(
@@ -129,15 +126,15 @@ fun LargeDropdownMenuItem(
         ),
         modifier = modifier
             .fillMaxWidth()
+            .clickable {
+                onOptionClick()
+            }
             .padding(
                 start = 16.dp,
                 end = 16.dp,
                 top = 12.dp,
                 bottom = 12.dp
             )
-            .clickable {
-                onOptionClick()
-            }
     )
 }
 
@@ -254,6 +251,9 @@ fun SmallDropdownHeader(
                 color = Main,
                 shape = RoundedCornerShape(8.dp)
             )
+            .clickable {
+                onHeaderClick()
+            }
             .padding(
                 end = 14.dp,
                 top = 10.dp,
@@ -261,9 +261,6 @@ fun SmallDropdownHeader(
             )
             .onGloballyPositioned { coordinates ->
                 onGloballyPositioned(coordinates)
-            }
-            .clickable {
-                onHeaderClick()
             }
     ) {
         Text(
@@ -317,13 +314,13 @@ fun SmallDropdownMenuItem(
         modifier = modifier
             .width(140.dp)
             .wrapContentHeight()
+            .clickable {
+                onOptionClick()
+            }
             .padding(
                 top = 8.dp,
                 bottom = 8.dp
             )
-            .clickable {
-                onOptionClick()
-            }
     )
 }
 
