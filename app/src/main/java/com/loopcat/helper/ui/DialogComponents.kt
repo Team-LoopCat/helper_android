@@ -91,12 +91,6 @@ fun HelperAlertDialog(
                         .clickable {
                             onClick()
                         }
-                        .clip(
-                            shape = RoundedCornerShape(
-                                bottomStart = 8.dp,
-                                bottomEnd = 8.dp
-                            )
-                        )
                         .padding(
                             top = 12.dp,
                             bottom = 12.dp
