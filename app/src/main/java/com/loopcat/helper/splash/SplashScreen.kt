@@ -49,7 +49,7 @@ fun HelperSplashScreen(modifier: Modifier = Modifier) {
             .background(White)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo),
+            painter = painterResource(id = R.drawable.logo_main),
             contentDescription = "logo",
             modifier = modifier
                 .align(Alignment.Center)
