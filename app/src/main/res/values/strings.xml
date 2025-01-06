@@ -7,5 +7,5 @@
     <string name="dialog_okay">확인</string>
     <string name="dialog_cancel">취소</string>
 
-    <string name="splash_exception">실행에 실패하였습니다</string>
+    <string name="splash_exception">앱 실행에 실패했습니다\n잠시 후 다시 시도해주세요</string>
 </resources>
