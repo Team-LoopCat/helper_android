@@ -2,11 +2,13 @@ package com.loopcat.helper.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -67,8 +69,8 @@ fun HelperConfirmClick(
                     onClickCancel()
                 }
                 .padding(
-                    top = 12.dp,
-                    bottom = 12.dp
+                    top = 14.dp,
+                    bottom = 14.dp
                 )
         )
         VerticalDivider(
@@ -93,8 +95,8 @@ fun HelperConfirmClick(
                     onClickConfirm()
                 }
                 .padding(
-                    top = 12.dp,
-                    bottom = 12.dp
+                    top = 14.dp,
+                    bottom = 14.dp
                 )
         )
     }
@@ -125,7 +127,7 @@ fun HelperAlertDialog(
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = modifier.height(42.dp))
+                Spacer(modifier = modifier.height(48.dp))
                 Text(
                     text = title,
                     style = TextStyle(
@@ -135,7 +137,7 @@ fun HelperAlertDialog(
                         color = Black
                     )
                 )
-                Spacer(modifier = modifier.height(40.dp))
+                Spacer(modifier = modifier.height(42.dp))
                 HorizontalDivider(
                     thickness = 0.4.dp,
                     color = Gray400
@@ -156,8 +158,8 @@ fun HelperAlertDialog(
                             onClick()
                         }
                         .padding(
-                            top = 12.dp,
-                            bottom = 12.dp
+                            top = 14.dp,
+                            bottom = 14.dp
                         )
                 )
             }
@@ -193,7 +195,7 @@ fun HelperConfirmDialog(
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = modifier.height(42.dp))
+                Spacer(modifier = modifier.height(48.dp))
                 Text(
                     text = title,
                     style = TextStyle(
@@ -217,7 +219,7 @@ fun HelperConfirmDialog(
                         textAlign = TextAlign.Center
                     )
                 }
-                Spacer(modifier = modifier.height(40.dp))
+                Spacer(modifier = modifier.height(42.dp))
                 HelperConfirmClick(
                     onClickConfirm = onClickConfirm,
                     onClickCancel = onClickCancel
