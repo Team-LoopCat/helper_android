@@ -1,9 +1,13 @@
 package com.loopcat.helper.ui
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,8 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -113,16 +115,9 @@ fun LargeDropdownHeader(
 @Composable
 fun LargeDropdownMenuItem(
     modifier: Modifier = Modifier,
-    index: Int,
     option: String,
     onOptionClick: () -> Unit
 ) {
-    if (index != 0) {
-        HorizontalDivider(
-            thickness = 0.6.dp,
-            color = Gray400
-        )
-    }
     Text(
         text = option,
         style = TextStyle(
@@ -145,9 +140,63 @@ fun LargeDropdownMenuItem(
     )
 }
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
+@Composable
+fun LargeDropdownMenuContent(
+    modifier: Modifier = Modifier,
+    isExpanded: Boolean,
+    options: List<String>,
+    onOptionClick: (String) -> Unit
+) {
+    BoxWithConstraints(
+        modifier = modifier
+            .padding(
+                start = 30.dp,
+                end = 30.dp
+            )
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(
+                color = White,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .border(
+                width = 0.6.dp,
+                color = Gray400,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .clip(
+                shape = RoundedCornerShape(8.dp)
+            )
+            .animateContentSize(
+                animationSpec = tween(durationMillis = 300)
+            )
+    ) {
+        Column {
+            if (isExpanded) {
+                options.forEachIndexed { index, option ->
+                    if (index > 0) {
+                        HorizontalDivider(
+                            thickness = 0.6.dp,
+                            color = Gray400
+                        )
+                    }
+                    LargeDropdownMenuItem(
+                        option = option,
+                        onOptionClick = {
+                            onOptionClick(option)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+
 @Composable
 fun LargeDropdownMenu(
-    modifier: Modifier = Modifier,
+    isExpanded: Boolean,
     offset: IntOffset,
     options: List<String>,
     onDismissRequest: () -> Unit,
@@ -158,37 +207,11 @@ fun LargeDropdownMenu(
         offset = offset,
         onDismissRequest = onDismissRequest
     ) {
-        LazyColumn(
-            modifier = modifier
-                .padding(
-                    start = 30.dp,
-                    end = 30.dp
-                )
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .background(
-                    color = White,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .border(
-                    width = 0.6.dp,
-                    color = Gray400,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .clip(
-                    shape = RoundedCornerShape(8.dp)
-                )
-        ) {
-            itemsIndexed(options) { index, option ->
-                LargeDropdownMenuItem(
-                    index = index,
-                    option = option,
-                    onOptionClick = {
-                        onOptionClick(option)
-                    }
-                )
-            }
-        }
+        LargeDropdownMenuContent(
+            isExpanded = isExpanded,
+            options = options,
+            onOptionClick = onOptionClick
+        )
     }
 }
 
@@ -203,6 +226,7 @@ fun LargeDropdown(
     var isHeaderClicked by remember { mutableStateOf(false) }
 
     var headerHeight by remember { mutableIntStateOf(0) }
+    val addYOffset = with(LocalDensity.current) { 32.dp.toPx() }.toInt()
 
     Column {
         LargeDropdownHeader(
@@ -210,7 +234,9 @@ fun LargeDropdown(
             selectedOption = selectedOption,
             isExpanded = isExpanded,
             onGloballyPositioned = { coordinates ->
-                headerHeight = coordinates.size.height
+                if (headerHeight == 0) {
+                    headerHeight = coordinates.size.height
+                }
             },
             onHeaderClick = {
                 isExpanded = !isExpanded
@@ -218,25 +244,24 @@ fun LargeDropdown(
             }
         )
 
-        if (isExpanded) {
-            LargeDropdownMenu(
-                offset = IntOffset(
-                    x = 0,
-                    y = headerHeight + with(LocalDensity.current) { 30.dp.toPx() }.toInt()
-                ),
-                options = options,
-                onDismissRequest = {
-                    if (!isHeaderClicked) {
-                        isExpanded = false
-                    }
-                    isHeaderClicked = false
-                },
-                onOptionClick = { option ->
-                    onOptionSelected(option)
+        LargeDropdownMenu(
+            isExpanded = isExpanded,
+            offset = IntOffset(
+                x = 0,
+                y = headerHeight + addYOffset
+            ),
+            options = options,
+            onDismissRequest = {
+                if (!isHeaderClicked) {
                     isExpanded = false
                 }
-            )
-        }
+                isHeaderClicked = false
+            },
+            onOptionClick = { option ->
+                onOptionSelected(option)
+                isExpanded = false
+            }
+        )
     }
 }
 
@@ -250,7 +275,7 @@ fun SmallDropdownHeader(
 ) {
     Box(
         modifier = modifier
-            .width(140.dp)
+            .width(142.dp)
             .wrapContentHeight()
             .background(
                 color = White,
@@ -305,16 +330,9 @@ fun SmallDropdownHeader(
 @Composable
 fun SmallDropdownMenuItem(
     modifier: Modifier = Modifier,
-    index: Int,
     option: String,
     onOptionClick: () -> Unit
 ) {
-    if (index != 0) {
-        HorizontalDivider(
-            thickness = 0.4.dp,
-            color = Gray400
-        )
-    }
     Text(
         text = option,
         style = TextStyle(
@@ -325,7 +343,7 @@ fun SmallDropdownMenuItem(
             textAlign = TextAlign.Center
         ),
         modifier = modifier
-            .width(140.dp)
+            .width(142.dp)
             .wrapContentHeight()
             .clickable {
                 onOptionClick()
@@ -337,9 +355,58 @@ fun SmallDropdownMenuItem(
     )
 }
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
+@Composable
+fun SmallDropdownMenuContent(
+    modifier: Modifier = Modifier,
+    isExpanded: Boolean,
+    options: List<String>,
+    onOptionClick: (String) -> Unit
+) {
+    BoxWithConstraints(
+        modifier = modifier
+            .width(142.dp)
+            .wrapContentHeight()
+            .background(
+                color = White,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .border(
+                width = 0.4.dp,
+                color = Gray400,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .clip(
+                shape = RoundedCornerShape(8.dp)
+            )
+            .animateContentSize(
+                animationSpec = tween(durationMillis = 300)
+            )
+    ) {
+        Column {
+            if (isExpanded) {
+                options.forEachIndexed { index, option ->
+                    if (index > 0) {
+                        HorizontalDivider(
+                            thickness = 0.4.dp,
+                            color = Gray400
+                        )
+                    }
+                    SmallDropdownMenuItem(
+                        option = option,
+                        onOptionClick = {
+                            onOptionClick(option)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun SmallDropdownMenu(
-    modifier: Modifier = Modifier,
+    isExpanded: Boolean,
     offset: IntOffset,
     options: List<String>,
     onDismissRequest: () -> Unit,
@@ -350,33 +417,11 @@ fun SmallDropdownMenu(
         offset = offset,
         onDismissRequest = onDismissRequest
     ) {
-        LazyColumn(
-            modifier = modifier
-                .width(140.dp)
-                .wrapContentHeight()
-                .background(
-                    color = White,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .border(
-                    width = 0.4.dp,
-                    color = Gray400,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .clip(
-                    shape = RoundedCornerShape(8.dp)
-                )
-        ) {
-            itemsIndexed(options) { index, option ->
-                SmallDropdownMenuItem(
-                    index = index,
-                    option = option,
-                    onOptionClick = {
-                        onOptionClick(option)
-                    }
-                )
-            }
-        }
+        SmallDropdownMenuContent(
+            isExpanded = isExpanded,
+            options = options,
+            onOptionClick = onOptionClick
+        )
     }
 }
 
@@ -391,6 +436,7 @@ fun SmallDropdown(
     var isHeaderClicked by remember { mutableStateOf(false) }
 
     var headerHeight by remember { mutableIntStateOf(0) }
+    val addYOffset = with(LocalDensity.current) { 22.dp.toPx() }.toInt()
 
     Column(
         modifier = modifier
@@ -402,7 +448,9 @@ fun SmallDropdown(
             selectedOption = selectedOption,
             isExpanded = isExpanded,
             onGloballyPositioned = { coordinates ->
-                headerHeight = coordinates.size.height
+                if (headerHeight == 0) {
+                    headerHeight = coordinates.size.height
+                }
             },
             onHeaderClick = {
                 isExpanded = !isExpanded
@@ -410,24 +458,23 @@ fun SmallDropdown(
             }
         )
 
-        if (isExpanded) {
-            SmallDropdownMenu(
-                offset = IntOffset(
-                    x = 0,
-                    y = headerHeight + with(LocalDensity.current) { 22.dp.toPx() }.toInt()
-                ),
-                options = options,
-                onDismissRequest = {
-                    if (!isHeaderClicked) {
-                        isExpanded = false
-                    }
-                    isHeaderClicked = false
-                },
-                onOptionClick = { option ->
-                    onOptionSelected(option)
+        SmallDropdownMenu(
+            isExpanded = isExpanded,
+            offset = IntOffset(
+                x = 0,
+                y = headerHeight + addYOffset
+            ),
+            options = options,
+            onDismissRequest = {
+                if (!isHeaderClicked) {
                     isExpanded = false
                 }
-            )
-        }
+                isHeaderClicked = false
+            },
+            onOptionClick = { option ->
+                onOptionSelected(option)
+                isExpanded = false
+            }
+        )
     }
 }
