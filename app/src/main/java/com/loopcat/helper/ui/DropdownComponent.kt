@@ -50,6 +50,8 @@ import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 
+private const val ANIMATION_DURATION = 300
+
 @Composable
 fun LargeDropdownHeader(
     modifier: Modifier = Modifier,
@@ -169,7 +171,7 @@ fun LargeDropdownMenuContent(
                 shape = RoundedCornerShape(8.dp)
             )
             .animateContentSize(
-                animationSpec = tween(durationMillis = 300)
+                animationSpec = tween(durationMillis = ANIMATION_DURATION)
             )
     ) {
         Column {
@@ -380,7 +382,7 @@ fun SmallDropdownMenuContent(
                 shape = RoundedCornerShape(8.dp)
             )
             .animateContentSize(
-                animationSpec = tween(durationMillis = 300)
+                animationSpec = tween(durationMillis = ANIMATION_DURATION)
             )
     ) {
         Column {
