@@ -41,7 +41,7 @@ fun AuthErrorMessage(
             .padding(
                 start = 30.dp,
                 end = 30.dp,
-                bottom = 10.dp
+                bottom = 8.dp
             )
             .fillMaxWidth()
             .wrapContentHeight()
