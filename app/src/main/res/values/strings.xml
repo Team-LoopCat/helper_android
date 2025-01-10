@@ -8,4 +8,14 @@
     <string name="dialog_cancel">취소</string>
 
     <string name="splash_exception">앱 실행에 실패했습니다\n잠시 후 다시 시도해주세요</string>
+
+    <string name="login">로그인</string>
+    <string name="login_id">아이디</string>
+    <string name="login_pw">비밀번호</string>
+    <string name="login_not_member">회원이 아니라면,</string>
+
+    <string name="signup">회원가입</string>
+    
+    <string name="error_none"/>
+    <string name="error_login">아이디나 비밀번호를 확인해주세요</string>
 </resources>
