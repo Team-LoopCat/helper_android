@@ -15,7 +15,16 @@
     <string name="login_not_member">회원이 아니라면,</string>
 
     <string name="signup">회원가입</string>
+    <string name="signup_id">아이디 (5 ~ 20자)</string>
+    <string name="signup_pw">비밀번호 (8 ~ 20자)</string>
+    <string name="signup_pw_check">비밀번호 확인</string>
+    <string name="signup_next">다음</string>
     
     <string name="error_none"/>
     <string name="error_login">아이디나 비밀번호를 확인해주세요</string>
+
+    <string name="error_id_regex">5 ~ 20자의 영문, 숫자, _만 사용 가능합니다</string>
+    <string name="error_pw_regex">8 ~ 20자의 영문, 숫자, 특수문자만 사용 가능합니다</string>
+    <string name="error_not_same_pw">비밀번호가 일치하지 않습니다</string>
+    <string name="error_overlap_id">사용할 수 없는 아이디입니다</string>
 </resources>
