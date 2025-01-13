@@ -45,7 +45,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
     var pw by remember { mutableStateOf("") }
 
     var buttonEnable by remember { mutableStateOf(false) }
-    var loginError by remember { mutableStateOf(AuthErrorType.NONE) }
+    var showError by remember { mutableStateOf(AuthErrorType.NONE) }
 
     if (id.isNotEmpty() && pw.isNotEmpty()) {
         buttonEnable = true
@@ -79,7 +79,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                     pw = input
                 }
             )
-            AuthErrorMessage(errorType = loginError)
+            AuthErrorMessage(errorType = showError)
         }
         Column(
             modifier = modifier
@@ -110,7 +110,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NotMember(
+private fun NotMember(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
