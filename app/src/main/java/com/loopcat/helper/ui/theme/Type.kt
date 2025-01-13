@@ -52,6 +52,10 @@ val Pretendard = FontFamily(
         Font(
             resId = R.font.pretendard_bold,
             weight = FontWeight.Bold
+        ),
+        Font(
+            resId = R.font.pretendard_extrabold,
+            weight = FontWeight.ExtraBold
         )
     )
 )

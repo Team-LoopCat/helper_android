@@ -3,11 +3,13 @@ package com.loopcat.helper.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
@@ -86,8 +89,8 @@ fun HelperInput(
             .padding(
                 start = 18.dp,
                 end = 18.dp,
-                top = 14.dp,
-                bottom = 14.dp
+                top = 16.dp,
+                bottom = 16.dp
             )
             .onFocusChanged { focusState ->
                 isFocused = focusState.isFocused
@@ -147,9 +150,9 @@ fun HelperPasswordInput(
             )
             .padding(
                 start = 18.dp,
-                end = 18.dp,
-                top = 14.dp,
-                bottom = 14.dp
+                end = 8.dp,
+                top = 2.dp,
+                bottom = 2.dp
             )
             .onFocusChanged { focusState ->
                 isFocused = focusState.isFocused
