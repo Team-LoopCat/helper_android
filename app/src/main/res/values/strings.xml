@@ -19,7 +19,11 @@
     <string name="signup_pw">비밀번호 (8 ~ 20자)</string>
     <string name="signup_pw_check">비밀번호 확인</string>
     <string name="signup_next">다음</string>
-    
+    <string name="signup_mail">학교 이메일을 입력해주세요</string>
+    <string name="signup_certify">인증하기</string>
+    <string name="signup_code">인증 코드</string>
+    <string name="signup_complete_certify">인증 완료</string>
+
     <string name="error_none"/>
     <string name="error_login">아이디나 비밀번호를 확인해주세요</string>
 
@@ -27,4 +31,10 @@
     <string name="error_pw_regex">8 ~ 20자의 영문, 숫자, 특수문자만 사용 가능합니다</string>
     <string name="error_not_same_pw">비밀번호가 일치하지 않습니다</string>
     <string name="error_overlap_id">사용할 수 없는 아이디입니다</string>
+
+    <string name="error_mail_regex">올바르지 않은 이메일 양식입니다</string>
+    <string name="error_overlap_mail">이미 가입된 메일입니다</string>
+    <string name="error_mail_modify">수정된 메일로 다시 인증해주세요</string>
+    <string name="error_wrong_code">잘못된 인증 코드입니다</string>
+    <string name="error_timeout">인증 코드 유효 시간이 만료되었습니다</string>
 </resources>
