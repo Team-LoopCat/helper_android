@@ -14,6 +14,9 @@ enum class AuthErrorType {
     WRONG_CODE,
     CODE_TIMEOUT,
 
+    NICK_REGEX,
+    OVERLAP_NICK,
+
     WRONG_ID_OR_PW,
     NONE
 }
@@ -30,6 +33,9 @@ fun authErrorMessage(error: AuthErrorType): Int {
         AuthErrorType.MAIL_MODIFY -> R.string.error_mail_modify
         AuthErrorType.WRONG_CODE -> R.string.error_wrong_code
         AuthErrorType.CODE_TIMEOUT -> R.string.error_timeout
+
+        AuthErrorType.NICK_REGEX -> R.string.error_nick_regex
+        AuthErrorType.OVERLAP_NICK -> R.string.error_overlap_nick
 
         AuthErrorType.WRONG_ID_OR_PW -> R.string.error_login
         AuthErrorType.NONE -> R.string.error_none
