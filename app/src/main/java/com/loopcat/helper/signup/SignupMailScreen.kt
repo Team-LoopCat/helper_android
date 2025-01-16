@@ -1,7 +1,6 @@
 package com.loopcat.helper.signup
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -36,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.R
 import com.loopcat.helper.ui.HelperButton
-import com.loopcat.helper.ui.HelperInput
 import com.loopcat.helper.ui.InputPlaceHolder
 import com.loopcat.helper.ui.auth.AuthErrorMessage
 import com.loopcat.helper.ui.auth.AuthErrorType
@@ -51,11 +49,8 @@ import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.addFocusCleaner
-import com.loopcat.helper.ui.utills.singleClickEvent
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.sin
 
 @Composable
 fun SignupMailScreen(
@@ -74,7 +69,7 @@ fun SignupMailScreen(
 
     var buttonEnable by remember { mutableStateOf(false) }
 
-    var sendMail = ""
+    var sendMail by remember { mutableStateOf("") }
 
     if (code.isNotEmpty()) {
         buttonEnable = true
