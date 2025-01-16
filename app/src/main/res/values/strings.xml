@@ -32,7 +32,7 @@
     <string name="error_none"/>
     <string name="error_login">아이디나 비밀번호를 확인해주세요</string>
 
-    <string name="error_id_regex">5 ~ 20자의 영문, 숫자, _만 사용 가능합니다</string>
+    <string name="error_id_regex">5 ~ 20자의 영문, 숫자, -, _, .만 사용 가능합니다</string>
     <string name="error_pw_regex">8 ~ 20자의 영문, 숫자, 특수문자만 사용 가능합니다</string>
     <string name="error_not_same_pw">비밀번호가 일치하지 않습니다</string>
     <string name="error_overlap_id">사용할 수 없는 아이디입니다</string>
@@ -43,6 +43,6 @@
     <string name="error_wrong_code">잘못된 인증 코드입니다</string>
     <string name="error_timeout">인증 코드 유효 시간이 만료되었습니다</string>
 
-    <string name="error_nick_regex">2 ~ 10자의 한글과 영문, \'@\'를 제외한 특수문자만 사용 가능합니다</string>
+    <string name="error_nick_regex">2 ~ 10자의 한글과 영문, -, _, .만 사용 가능합니다</string>
     <string name="error_overlap_nick">중복된 닉네임입니다</string>
 </resources>
