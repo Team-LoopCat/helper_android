@@ -23,6 +23,11 @@
     <string name="signup_certify">인증하기</string>
     <string name="signup_code">인증 코드</string>
     <string name="signup_complete_certify">인증 완료</string>
+    <string name="signup_grade">학년</string>
+    <string name="signup_class_number">반</string>
+    <string name="signup_student_number">번호</string>
+    <string name="signup_nick">닉네임 (2 ~ 10자)</string>
+    <string name="signup_overlap_check">중복 확인</string>
 
     <string name="error_none"/>
     <string name="error_login">아이디나 비밀번호를 확인해주세요</string>
@@ -37,4 +42,7 @@
     <string name="error_mail_modify">수정된 메일로 다시 인증해주세요</string>
     <string name="error_wrong_code">잘못된 인증 코드입니다</string>
     <string name="error_timeout">인증 코드 유효 시간이 만료되었습니다</string>
+
+    <string name="error_nick_regex">2 ~ 10자의 한글과 영문, \'@\'를 제외한 특수문자만 사용 가능합니다</string>
+    <string name="error_overlap_nick">중복된 닉네임입니다</string>
 </resources>
