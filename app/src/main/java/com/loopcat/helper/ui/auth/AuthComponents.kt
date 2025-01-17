@@ -241,7 +241,7 @@ fun SmallInputWithButton(
 @Composable
 fun ProfileModify(
     modifier: Modifier = Modifier,
-    imageUrl: Uri,
+    imageUrl: String,
     onImageSelected: (Uri?) -> Unit
 ) {
     val launcher = rememberLauncherForActivityResult(
@@ -257,7 +257,7 @@ fun ProfileModify(
             }
     ) {
         AsyncImage(
-            model = imageUrl,
+            model = imageUrl.takeIf { it.isNotEmpty() } ?: R.drawable.default_profile,
             contentDescription = "Profile Image",
             modifier = modifier
                 .fillMaxSize()
