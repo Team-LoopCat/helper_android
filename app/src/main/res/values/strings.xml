@@ -43,6 +43,9 @@
     <string name="error_wrong_code">잘못된 인증 코드입니다</string>
     <string name="error_timeout">인증 코드 유효 시간이 만료되었습니다</string>
 
+    <string name="error_grade_regex">존재하지 않는 학년입니다</string>
+    <string name="error_class_number_regex">존재하지 않는 반입니다</string>
+    <string name="error_student_number_regex">존재하지 않는 번호입니다</string>
     <string name="error_nick_regex">2 ~ 10자의 한글과 영문, -, _, .만 사용 가능합니다</string>
     <string name="error_overlap_nick">중복된 닉네임입니다</string>
 </resources>
