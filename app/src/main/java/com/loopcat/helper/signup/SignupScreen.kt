@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,16 +38,19 @@ fun SignupScreen(
     var id by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
     var pwCheck by remember { mutableStateOf("") }
-    var buttonEnabled by remember { mutableStateOf(false) }
 
     var idError by remember { mutableStateOf(AuthErrorType.NONE) }
     var pwError by remember { mutableStateOf(AuthErrorType.NONE) }
     var pwCheckError by remember { mutableStateOf(AuthErrorType.NONE) }
 
-    if (id.isNotEmpty() && pw.isNotEmpty() && idError == AuthErrorType.NONE && pwError == AuthErrorType.NONE && pwCheckError == AuthErrorType.NONE) {
-        buttonEnabled = true
-    } else {
-        buttonEnabled = false
+    val buttonEnable by remember(id, pw, idError, pwError, pwCheckError) {
+        derivedStateOf {
+            id.isNotEmpty() &&
+            pw.isNotEmpty() &&
+            idError == AuthErrorType.NONE &&
+            pwError == AuthErrorType.NONE &&
+            pwCheckError == AuthErrorType.NONE
+        }
     }
 
     Box(
@@ -107,7 +111,7 @@ fun SignupScreen(
         }
         HelperButton(
             modifier = modifier.align(Alignment.BottomCenter),
-            enable = buttonEnabled, 
+            enable = buttonEnable,
             buttonText = stringResource(id = R.string.signup_next),
             onClick = {
                 // 아이디 중복 확인

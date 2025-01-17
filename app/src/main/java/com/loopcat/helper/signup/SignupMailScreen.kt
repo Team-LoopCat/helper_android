@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -60,19 +61,24 @@ fun SignupMailScreen(
     val scope = rememberCoroutineScope()
 
     var mail by remember { mutableStateOf("") }
-    var smallButtonEnable by remember { mutableStateOf(false) }
     var mailError by remember { mutableStateOf(AuthErrorType.NONE) }
 
     var code by remember { mutableStateOf("") }
     var codeTime by remember { mutableIntStateOf(0) }
     var codeError by remember { mutableStateOf(AuthErrorType.NONE) }
 
-    var buttonEnable by remember { mutableStateOf(false) }
-
     var sendMail by remember { mutableStateOf("") }
+    var isSend by remember { mutableStateOf(false) }
 
-    if (code.isNotEmpty()) {
-        buttonEnable = true
+    val smallButtonEnable by remember(mailError) {
+        derivedStateOf {
+            mailError == AuthErrorType.NONE
+        }
+    }
+    val buttonEnable by remember(code) {
+        derivedStateOf {
+            code.isNotEmpty()
+        }
     }
 
     Box(
@@ -95,16 +101,15 @@ fun SignupMailScreen(
                 buttonText = stringResource(id = R.string.signup_certify),
                 onValueChange = { input ->
                     mail = input
-                    if (!checkRegex(AuthRegexType.MAIL, mail)) {
-                        mailError = AuthErrorType.MAIL_REGEX
-                        smallButtonEnable = false
+                    mailError = if (!checkRegex(AuthRegexType.MAIL, mail)) {
+                        AuthErrorType.MAIL_REGEX
                     } else {
-                        mailError = AuthErrorType.NONE
-                        smallButtonEnable = true
+                        AuthErrorType.NONE
                     }
                 },
                 onClick = {
                     sendMail = mail
+                    isSend = true
                     codeTime = 300
                     scope.launch {
                         while (codeTime > 0) {

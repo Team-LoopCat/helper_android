@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,14 +62,21 @@ fun SignupNickScreen(modifier: Modifier = Modifier) {
     var nickname by remember { mutableStateOf("") }
     
     var nickError by remember { mutableStateOf(AuthErrorType.NONE) }
-    
-    var smallButtonEnable by remember { mutableStateOf(false) }
-    var buttonEnable by remember { mutableStateOf(false) }
 
-    if (nickname.isNotEmpty() && nickError != AuthErrorType.NICK_REGEX) {
-        smallButtonEnable = true
-    } else {
-        smallButtonEnable = false
+    val smallButtonEnable by remember(nickname, nickError) {
+        derivedStateOf {
+            nickname.isNotEmpty() &&
+            nickError != AuthErrorType.NICK_REGEX
+        }
+    }
+    val buttonEnable by remember(grade, classNumber, studentNumber, nickname, nickError) {
+        derivedStateOf {
+            grade.isNotEmpty() &&
+            classNumber.isNotEmpty() &&
+            studentNumber.isNotEmpty() &&
+            nickname.isNotEmpty() &&
+            nickError == AuthErrorType.NONE
+        }
     }
 
     Box(
