@@ -41,7 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.loopcat.helper.R
 import com.loopcat.helper.ui.InputPlaceHolder
 import com.loopcat.helper.ui.theme.Black
@@ -139,7 +139,11 @@ private fun SmallInput(
             value = input,
             onValueChange = onValueChange,
             singleLine = true,
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = when(hint) {
+                stringResource(id = R.string.signup_mail) -> KeyboardType.Email
+                stringResource(id = R.string.signup_nick) -> KeyboardType.Text
+                else -> KeyboardType.Text
+            }),
             textStyle = TextStyle(
                 fontFamily = Pretendard,
                 fontWeight = FontWeight.Medium,
