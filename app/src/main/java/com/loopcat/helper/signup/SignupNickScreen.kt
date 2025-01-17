@@ -1,6 +1,5 @@
 package com.loopcat.helper.signup
 
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -33,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.isDigitsOnly
 import com.loopcat.helper.R
 import com.loopcat.helper.ui.HelperButton
 import com.loopcat.helper.ui.InputPlaceHolder
@@ -53,15 +53,24 @@ import com.loopcat.helper.ui.utills.addFocusCleaner
 fun SignupNickScreen(modifier: Modifier = Modifier) {
     val focusManager = LocalFocusManager.current
 
-    var imageUri by remember {
-        mutableStateOf(Uri.parse("android.resource://com.loopcat.helper/drawable/default_profile"))
-    }
+    var imageUrl by remember { mutableStateOf("") }
     var grade by remember { mutableStateOf("") }
     var classNumber by remember { mutableStateOf("") }
     var studentNumber by remember { mutableStateOf("") }
     var nickname by remember { mutableStateOf("") }
-    
+    var sendNick by remember { mutableStateOf("") }
+
     var nickError by remember { mutableStateOf(AuthErrorType.NONE) }
+
+    val schoolInfoError = if (grade.isNotEmpty() && grade.toIntOrNull() !in 1..3) {
+        AuthErrorType.GRADE_REGEX
+    } else if (classNumber.isNotEmpty() && classNumber.toIntOrNull() !in 1..4) {
+        AuthErrorType.CLASS_NUMBER_REGEX
+    } else if (studentNumber.isNotEmpty() && studentNumber.toIntOrNull() !in 1..20) {
+        AuthErrorType.STUDENT_NUMBER_REGEX
+    } else {
+        AuthErrorType.NONE
+    }
 
     val smallButtonEnable by remember(nickname, nickError) {
         derivedStateOf {
@@ -69,12 +78,14 @@ fun SignupNickScreen(modifier: Modifier = Modifier) {
             nickError != AuthErrorType.NICK_REGEX
         }
     }
-    val buttonEnable by remember(grade, classNumber, studentNumber, nickname, nickError) {
+    val buttonEnable by remember(schoolInfoError, sendNick, nickError) {
         derivedStateOf {
             grade.isNotEmpty() &&
             classNumber.isNotEmpty() &&
             studentNumber.isNotEmpty() &&
             nickname.isNotEmpty() &&
+            schoolInfoError == AuthErrorType.NONE &&
+            sendNick == nickname &&
             nickError == AuthErrorType.NONE
         }
     }
@@ -91,9 +102,9 @@ fun SignupNickScreen(modifier: Modifier = Modifier) {
         ) {
             Spacer(modifier = modifier.height(100.dp))
             ProfileModify(
-                imageUrl = imageUri,
+                imageUrl = imageUrl,
                 onImageSelected = { uri ->
-                    imageUri = uri
+                    imageUrl = uri.toString()
                 }
             )
             Spacer(modifier = modifier.height(60.dp))
@@ -102,22 +113,22 @@ fun SignupNickScreen(modifier: Modifier = Modifier) {
                 classNumber = classNumber,
                 studentNumber = studentNumber,
                 onGradeChange = { input ->
-                    if (grade.isEmpty()) {
+                    if (input.isDigitsOnly() && input.length <= 1) {
                         grade = input
                     }
                 },
                 onClassNumberChange = { input ->
-                    if (classNumber.isEmpty()) {
+                    if (input.isDigitsOnly() && input.length <= 1) {
                         classNumber = input
                     }
                 },
                 onStudentNumberChange = { input ->
-                    if (studentNumber.length < 2) {
+                    if (input.isDigitsOnly() && input.length <= 2) {
                         studentNumber = input
                     }
                 }
             )
-            AuthErrorMessage(errorType = AuthErrorType.NONE)
+            AuthErrorMessage(errorType = schoolInfoError)
             SmallInputWithButton(
                 input = nickname,
                 hint = stringResource(id = R.string.signup_nick),
@@ -133,6 +144,7 @@ fun SignupNickScreen(modifier: Modifier = Modifier) {
                 },
                 onClick = {
                     // 중복확인 요청
+                    sendNick = nickname
                 }
             )
             AuthErrorMessage(errorType = nickError)
