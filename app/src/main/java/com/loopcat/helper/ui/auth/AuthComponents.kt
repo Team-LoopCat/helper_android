@@ -24,6 +24,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -182,7 +183,7 @@ private fun SmallButton(
                 }
             },
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonColors(
+            colors = ButtonDefaults.buttonColors(
                 disabledContentColor = White,
                 contentColor = White,
                 disabledContainerColor = Gray300,
@@ -256,7 +257,7 @@ fun ProfileModify(
             if (isImageSizeValid(context, uri)) {
                 onImageSelected(uri)
             } else {
-                Toast.makeText(context, "이미지 크기가 100MB를 초과합니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "이미지 크기가 5MB를 초과합니다", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -270,6 +271,7 @@ fun ProfileModify(
         AsyncImage(
             model = imageUrl.takeIf { it.isNotEmpty() } ?: R.drawable.default_profile,
             contentDescription = "Profile Image",
+            error = painterResource(id = R.drawable.default_profile),
             modifier = modifier
                 .fillMaxSize()
                 .align(Alignment.Center)

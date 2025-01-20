@@ -21,7 +21,9 @@ fun checkRegex(type: AuthRegexType, input: String): Boolean {
 }
 
 fun isImageSizeValid(context: Context, uri: Uri) : Boolean {
-    val fileSizeInBytes = context.contentResolver.openFileDescriptor(uri, "r")?.statSize ?: return false
-    val fileSizeInMB = fileSizeInBytes / (1024 * 1024)
-    return fileSizeInMB <= 100
+    context.contentResolver.openFileDescriptor(uri, "r")?.use { descriptor ->
+        val fileSizeInBytes = descriptor.statSize
+        val fileSizeInMB = fileSizeInBytes / (1024 * 1024)
+        return fileSizeInMB <= 5
+    } ?: return false
 }
