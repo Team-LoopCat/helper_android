@@ -1,5 +1,8 @@
 package com.loopcat.helper.ui.auth
 
+import android.content.Context
+import android.net.Uri
+
 enum class AuthRegexType {
     ID,
     PASSWORD,
@@ -15,4 +18,10 @@ fun checkRegex(type: AuthRegexType, input: String): Boolean {
         AuthRegexType.NICKNAME -> "^[a-zA-Z0-9ㄱ-ㅎ가-힣_\\.-]{2,10}$"
     }.toRegex()
     return regex.matches(input)
+}
+
+fun isImageSizeValid(context: Context, uri: Uri) : Boolean {
+    val fileSizeInBytes = context.contentResolver.openFileDescriptor(uri, "r")?.statSize ?: return false
+    val fileSizeInMB = fileSizeInBytes / (1024 * 1024)
+    return fileSizeInMB <= 100
 }
