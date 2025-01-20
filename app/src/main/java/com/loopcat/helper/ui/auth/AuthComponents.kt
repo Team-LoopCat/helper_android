@@ -1,6 +1,7 @@
 package com.loopcat.helper.ui.auth
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -35,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -243,12 +245,20 @@ fun SmallInputWithButton(
 fun ProfileModify(
     modifier: Modifier = Modifier,
     imageUrl: String,
-    onImageSelected: (Uri?) -> Unit
+    onImageSelected: (Uri) -> Unit
 ) {
+    val context = LocalContext.current
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        onImageSelected(uri)
+        if (uri != null) {
+            if (isImageSizeValid(context, uri)) {
+                onImageSelected(uri)
+            } else {
+                Toast.makeText(context, "이미지 크기가 100MB를 초과합니다", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
     Box(
         modifier = modifier
