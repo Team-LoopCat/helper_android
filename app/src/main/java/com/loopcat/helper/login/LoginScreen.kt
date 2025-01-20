@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,11 +45,13 @@ fun LoginScreen(modifier: Modifier = Modifier) {
     var id by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
 
-    var buttonEnable by remember { mutableStateOf(false) }
     var showError by remember { mutableStateOf(AuthErrorType.NONE) }
 
-    if (id.isNotEmpty() && pw.isNotEmpty()) {
-        buttonEnable = true
+    val buttonEnable by remember(id, pw) {
+        derivedStateOf {
+            id.isNotEmpty() &&
+            pw.isNotEmpty()
+        }
     }
 
     Box(
