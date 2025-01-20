@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -267,7 +268,8 @@ fun ProfileModify(
                     width = 1.dp,
                     color = Gray500,
                     shape = CircleShape
-                )
+                ),
+            contentScale = ContentScale.Crop
         )
         Image(
             painter = painterResource(id = R.drawable.icon_pencil),
