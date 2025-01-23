@@ -56,8 +56,12 @@
     <string name="mypage_password_modify">비밀번호 변경</string>
     <string name="mypage_logout">로그아웃</string>
     <string name="mypage_out_membership">회원탈퇴</string>
-
     <string name="is_logout">로그아웃하시겠습니까?</string>
     <string name="is_out_of_membership">정말 탈퇴하시겠습니까?</string>
     <string name="is_out_of_membership_description">탈퇴 후 되돌릴 수 없습니다</string>
+    <string name="is_profile_modify">프로필을 수정하시겠습니까?</string>
+    <string name="profile_modify_fail">프로필 수정에 실패하였습니다</string>
+    <string name="profile_modify_success">프로필 수정에 성공하였습니다</string>
+
+    <string name="complete_modify">수정하기</string>
 </resources>
