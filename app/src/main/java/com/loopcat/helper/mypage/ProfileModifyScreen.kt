@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.loopcat.helper.R
+import com.loopcat.helper.ui.HelperAlertDialog
 import com.loopcat.helper.ui.HelperButton
 import com.loopcat.helper.ui.HelperConfirmDialog
 import com.loopcat.helper.ui.HelperInput
@@ -55,6 +56,7 @@ fun ProfileModifyScreen(
     }
     
     var isComplete by remember { mutableStateOf(false) }
+    var isFailModify by remember { mutableStateOf(false) }
     
     Box (
         modifier = modifier
@@ -111,7 +113,17 @@ fun ProfileModifyScreen(
             onClickConfirm = {
                 // 닉네임 중복 검사
                 // 성공 시 마이페이지로 이동
-                // 실패시 AlertDialog
+
+                // 실패시
+                isFailModify = true
+            }
+        )
+    }
+    if (isFailModify) {
+        HelperAlertDialog(
+            title = stringResource(id = R.string.profile_modify_fail),
+            onClick = {
+                isFailModify = false
             }
         )
     }
