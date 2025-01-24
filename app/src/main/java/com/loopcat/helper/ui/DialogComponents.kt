@@ -40,7 +40,7 @@ import com.loopcat.helper.ui.theme.Red
 import com.loopcat.helper.ui.theme.White
 
 @Composable
-fun HelperConfirmClick(
+private fun HelperConfirmClick(
     modifier: Modifier = Modifier,
     onClickConfirm: () -> Unit,
     onClickCancel: () -> Unit

@@ -20,6 +20,8 @@ enum class AuthErrorType {
     NICK_REGEX,
     OVERLAP_NICK,
 
+    NOT_NOW_PW,
+
     WRONG_ID_OR_PW,
     NONE
 }
@@ -42,6 +44,8 @@ fun authErrorMessage(error: AuthErrorType): Int {
         AuthErrorType.STUDENT_NUMBER_REGEX -> R.string.error_student_number_regex
         AuthErrorType.NICK_REGEX -> R.string.error_nick_regex
         AuthErrorType.OVERLAP_NICK -> R.string.error_overlap_nick
+
+        AuthErrorType.NOT_NOW_PW -> R.string.error_not_now_pw
 
         AuthErrorType.WRONG_ID_OR_PW -> R.string.error_login
         AuthErrorType.NONE -> R.string.error_none

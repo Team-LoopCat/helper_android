@@ -53,7 +53,7 @@ import com.loopcat.helper.ui.utills.addFocusCleaner
 fun SignupNickScreen(modifier: Modifier = Modifier) {
     val focusManager = LocalFocusManager.current
 
-    var imageUrl by remember { mutableStateOf("") }
+    var profileImageUrl by remember { mutableStateOf("") }
     var grade by remember { mutableStateOf("") }
     var classNumber by remember { mutableStateOf("") }
     var studentNumber by remember { mutableStateOf("") }
@@ -102,9 +102,9 @@ fun SignupNickScreen(modifier: Modifier = Modifier) {
         ) {
             Spacer(modifier = modifier.height(100.dp))
             ProfileModify(
-                imageUrl = imageUrl,
+                imageUrl = profileImageUrl,
                 onImageSelected = { uri ->
-                    imageUrl = uri.toString()
+                    profileImageUrl = uri.toString()
                 }
             )
             Spacer(modifier = modifier.height(60.dp))

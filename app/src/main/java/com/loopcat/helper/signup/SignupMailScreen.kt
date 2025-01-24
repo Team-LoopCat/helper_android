@@ -52,6 +52,7 @@ import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.addFocusCleaner
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Composable
 fun SignupMailScreen(
@@ -218,9 +219,8 @@ private fun CodeInput(
     }
 }
 
-@SuppressLint("DefaultLocale")
 private fun formatTimer(seconds: Int): String {
     val minutes = seconds / 60
     val remainingSeconds = seconds % 60
-    return String.format("%01d:%02d", minutes, remainingSeconds)
+    return String.format(Locale.getDefault(), "%01d:%02d", minutes, remainingSeconds)
 }
