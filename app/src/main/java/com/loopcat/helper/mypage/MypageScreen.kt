@@ -92,7 +92,8 @@ fun MyPageScreen(modifier: Modifier = Modifier) {
                 stringResource(id = R.string.mypage_out_membership) to {
                     isOutOfMembership = true
                 }
-            )
+            ),
+            isOutOfMembership = true
         )
     }
 
@@ -162,6 +163,7 @@ private fun Profile(
 private fun MyPageOptionText(
     modifier: Modifier = Modifier,
     text: String,
+    isOutOfMembership: Boolean,
     onClick: () -> Unit
 ) {
     Text(
@@ -182,7 +184,7 @@ private fun MyPageOptionText(
             fontFamily = Pretendard,
             fontWeight = FontWeight.Medium,
             fontSize = 16.sp,
-            color = if (text == stringResource(id = R.string.mypage_out_membership)) Red else Black
+            color = if (isOutOfMembership) Red else Black
         ),
         textAlign = TextAlign.Start
     )
@@ -191,7 +193,8 @@ private fun MyPageOptionText(
 @Composable
 fun MyPageOption(
     modifier: Modifier = Modifier,
-    options: List<Pair<String, () -> Unit>>
+    options: List<Pair<String, () -> Unit>>,
+    isOutOfMembership: Boolean = false
 ) {
     Column(
         modifier = modifier
@@ -221,7 +224,8 @@ fun MyPageOption(
             }
             MyPageOptionText(
                 text = option,
-                onClick = onClick
+                onClick = onClick,
+                isOutOfMembership = isOutOfMembership
             )
         }
     }
