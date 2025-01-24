@@ -1,6 +1,5 @@
 package com.loopcat.helper.ui.notice
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -35,7 +34,7 @@ import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.dropShadow
 import com.loopcat.helper.ui.utills.noRippleClickable
-import java.lang.String.format
+import java.util.Locale
 
 @Composable
 fun CommunityListItem(
@@ -142,7 +141,7 @@ private fun CommunityItemTag(
             .fillMaxWidth()
             .clipToBounds()
     ) {
-        for (tag in tags) {
+        tags.forEach { tag ->
             Text(
                 modifier = modifier
                     .padding(
@@ -163,7 +162,6 @@ private fun CommunityItemTag(
     }
 }
 
-@SuppressLint("DefaultLocale")
 @Composable
 private fun CommunityItemComment(
     modifier: Modifier = Modifier,
@@ -185,7 +183,7 @@ private fun CommunityItemComment(
             contentDescription = "comment icon"
         )
         Text(
-            text = format("%02d", numberOfComments),
+            text = String.format(Locale.getDefault(), "%02d", numberOfComments),
             style = TextStyle(
                 fontFamily = Pretendard,
                 fontWeight = FontWeight.Medium,
