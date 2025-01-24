@@ -149,7 +149,7 @@ private fun Profile(
 }
 
 @Composable
-private fun MyPageOption(
+private fun MyPageOptionText(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit
@@ -203,7 +203,7 @@ private fun DoubleOption(
                 color = White
             )
     ) {
-        MyPageOption(
+        MyPageOptionText(
             text = firstOption,
             onClick = firstOptionClick
         )
@@ -217,7 +217,7 @@ private fun DoubleOption(
             thickness = 0.4.dp,
             color = Gray400
         )
-        MyPageOption(
+        MyPageOptionText(
             text = secondOption,
             onClick = secondOptionClick
         )
@@ -230,7 +230,7 @@ private fun SingleOption(
     option: String,
     onClick: () -> Unit
 ) {
-    MyPageOption(
+    MyPageOptionText(
         modifier = modifier
             .padding(
                 start = 30.dp,
