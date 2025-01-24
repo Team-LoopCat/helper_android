@@ -7,7 +7,8 @@ import java.util.Calendar
 @SuppressLint("SimpleDateFormat")
 fun calculateTheDate(date: String): Long {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-    val endDate = dateFormat.parse(date)!!.time
+    val parseDate = dateFormat.parse(date) ?: return 0
+    val endDate = parseDate.time
     val today = Calendar.getInstance().apply {
         set(Calendar.HOUR_OF_DAY, 0)
         set(Calendar.MINUTE, 0)
