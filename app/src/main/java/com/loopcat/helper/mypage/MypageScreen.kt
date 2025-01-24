@@ -60,29 +60,39 @@ fun MyPageScreen(modifier: Modifier = Modifier) {
             nickname = "익명이"
         )
         Spacer(modifier = modifier.height(10.dp))
-        DoubleOption(
-            firstOption = stringResource(id = R.string.mypage_my_notice),
-            secondOption = stringResource(id = R.string.mypage_my_study),
-            firstOptionClick = {},
-            secondOptionClick = {}
+        MyPageOption(
+            options = listOf(
+                stringResource(id = R.string.mypage_my_notice) to {
+                    // 내가 작성한 글로 이동
+                },
+                stringResource(id = R.string.mypage_my_study) to {
+                    // 내 스터디로 이동
+                }
+            )
         )
-        DoubleOption(
-            firstOption = stringResource(id = R.string.mypage_profile_modify),
-            secondOption = stringResource(id = R.string.mypage_password_modify),
-            firstOptionClick = {},
-            secondOptionClick = {}
+        MyPageOption(
+            options = listOf(
+                stringResource(id = R.string.mypage_profile_modify) to {
+                    // 프로필 수정으로 이동
+                },
+                stringResource(id = R.string.mypage_password_modify) to {
+                    // 비밀번호 수정으로 이동
+                }
+            )
         )
-        SingleOption(
-            option = stringResource(id = R.string.mypage_logout),
-            onClick = {
-                isLogout = true
-            }
+        MyPageOption(
+            options = listOf(
+                stringResource(id = R.string.mypage_logout) to {
+                    isLogout = true
+                }
+            )
         )
-        SingleOption(
-            option = stringResource(id = R.string.mypage_out_membership),
-            onClick = {
-                isOutOfMembership = true
-            }
+        MyPageOption(
+            options = listOf(
+                stringResource(id = R.string.mypage_out_membership) to {
+                    isOutOfMembership = true
+                }
+            )
         )
     }
 
@@ -179,12 +189,9 @@ private fun MyPageOptionText(
 }
 
 @Composable
-private fun DoubleOption(
+fun MyPageOption(
     modifier: Modifier = Modifier,
-    firstOption: String,
-    secondOption: String,
-    firstOptionClick: () -> Unit,
-    secondOptionClick: () -> Unit
+    options: List<Pair<String, () -> Unit>>
 ) {
     Column(
         modifier = modifier
@@ -196,57 +203,26 @@ private fun DoubleOption(
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()
-            .clip(
-                shape = RoundedCornerShape(8.dp)
-            )
-            .background(
-                color = White
-            )
+            .clip(RoundedCornerShape(8.dp))
+            .background(White)
     ) {
-        MyPageOptionText(
-            text = firstOption,
-            onClick = firstOptionClick
-        )
-        HorizontalDivider(
-            modifier = modifier
-                .padding(
-                    start = 8.dp,
-                    end = 8.dp
+        options.forEachIndexed { index, (option, onClick) ->
+            if (index > 0) {
+                HorizontalDivider(
+                    modifier = modifier
+                        .padding(
+                            start = 8.dp,
+                            end = 8.dp
+                        )
+                        .fillMaxWidth(),
+                    thickness = 0.4.dp,
+                    color = Gray400
                 )
-                .fillMaxWidth(),
-            thickness = 0.4.dp,
-            color = Gray400
-        )
-        MyPageOptionText(
-            text = secondOption,
-            onClick = secondOptionClick
-        )
+            }
+            MyPageOptionText(
+                text = option,
+                onClick = onClick
+            )
+        }
     }
-}
-
-@Composable
-private fun SingleOption(
-    modifier: Modifier = Modifier,
-    option: String,
-    onClick: () -> Unit
-) {
-    MyPageOptionText(
-        modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp,
-                top = 18.dp
-            )
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .dropShadow()
-            .clip(
-                shape = RoundedCornerShape(8.dp)
-            )
-            .background(
-                color = White
-            ),
-        text = option,
-        onClick = onClick
-    )
 }
