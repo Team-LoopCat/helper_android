@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.loopcat.helper.R
 import com.loopcat.helper.ui.InputPlaceHolder
 import com.loopcat.helper.ui.theme.Black
@@ -270,7 +271,10 @@ fun ProfileModify(
             }
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(context).data(imageUrl).build(),
+            model = ImageRequest.Builder(context)
+                .data(imageUrl)
+                .crossfade(true)
+                .build(),
             contentDescription = "Profile Image",
             error = painterResource(id = R.drawable.default_profile),
             placeholder = painterResource(id = R.drawable.default_profile),
