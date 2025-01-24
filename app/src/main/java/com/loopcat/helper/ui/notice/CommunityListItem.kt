@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -63,7 +64,7 @@ fun CommunityListItem(
                 onClick()
             }
     ) {
-        NoticeContents(
+        CommunityItemContent(
             modifier = modifier.align(Alignment.TopStart),
             title = noticeItemData.title,
             content = noticeItemData.contents,
@@ -77,7 +78,7 @@ fun CommunityListItem(
 }
 
 @Composable
-private fun NoticeContents(
+private fun CommunityItemContent(
     modifier: Modifier = Modifier,
     title: String,
     content: String,
@@ -165,6 +166,7 @@ private fun NoticeComment(
                 .width(13.dp)
                 .height(11.dp),
             painter = painterResource(id = R.drawable.icon_comment),
+            colorFilter = ColorFilter.tint(Gray600),
             contentDescription = "comment icon"
         )
         Text(
