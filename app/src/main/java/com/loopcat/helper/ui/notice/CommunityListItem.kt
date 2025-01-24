@@ -1,5 +1,6 @@
 package com.loopcat.helper.ui.notice
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,13 +11,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -33,7 +35,7 @@ import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.dropShadow
 import com.loopcat.helper.ui.utills.noRippleClickable
-import okhttp3.internal.format
+import java.lang.String.format
 
 @Composable
 fun CommunityListItem(
@@ -70,7 +72,7 @@ fun CommunityListItem(
             content = noticeItemData.contents,
             tags = noticeItemData.tag
         )
-        NoticeComment(
+        CommunityItemComment(
             modifier = modifier.align(Alignment.BottomEnd),
             numberOfComments = noticeItemData.commentCount
         )
@@ -119,38 +121,51 @@ private fun CommunityItemContent(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-        Row(
-            modifier = modifier
-                .padding(
-                    top = 6.dp,
-                    end = 30.dp,
-                    bottom = 4.dp
-                )
-                .fillMaxWidth()
-                .wrapContentHeight()
-        ) {
-            for (tag in tags) {
-                Text(
-                    modifier = modifier
-                        .padding(
-                            end = 8.dp
-                        )
-                        .wrapContentSize(),
-                    text = "#$tag",
-                    style = TextStyle(
-                        fontFamily = Pretendard,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp,
-                        color = Gray600
-                    )
-                )
-            }
-        }
+        CommunityItemTag(
+            tags = tags
+        )
     }
 }
 
 @Composable
-private fun NoticeComment(
+private fun CommunityItemTag(
+    modifier: Modifier = Modifier,
+    tags: List<String>
+) {
+    Row(
+        modifier = modifier
+            .padding(
+                top = 6.dp,
+                end = 30.dp,
+                bottom = 4.dp
+            )
+            .fillMaxWidth()
+            .clipToBounds()
+    ) {
+        for (tag in tags) {
+            Text(
+                modifier = modifier
+                    .padding(
+                        end = 8.dp
+                    )
+                    .wrapContentWidth(),
+                text = "#$tag",
+                style = TextStyle(
+                    fontFamily = Pretendard,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp,
+                    color = Gray600
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Clip
+            )
+        }
+    }
+}
+
+@SuppressLint("DefaultLocale")
+@Composable
+private fun CommunityItemComment(
     modifier: Modifier = Modifier,
     numberOfComments: Int
 ) {
