@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 @SuppressLint("SimpleDateFormat")
-fun calculateTheDate(date: String): Long {
+fun calculateDueDate(date: String): Long {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd")
     val parseDate = dateFormat.parse(date) ?: return 0
     val endDate = parseDate.time

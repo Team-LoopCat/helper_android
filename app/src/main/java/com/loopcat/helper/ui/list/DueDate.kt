@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Main100
 import com.loopcat.helper.ui.theme.Pretendard
-import com.loopcat.helper.utils.calculateTheDate
+import com.loopcat.helper.utils.calculateDueDate
 
 @Composable
 fun ListItemDueDate(
@@ -35,7 +35,7 @@ fun ListItemDueDate(
                 top = 3.dp,
                 bottom = 3.dp
             ),
-        text = "D-${calculateTheDate(date)}",
+        text = "D-${calculateDueDate(date)}",
         style = TextStyle(
             fontFamily = Pretendard,
             fontWeight = FontWeight.SemiBold,

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,18 +21,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.R
 import com.loopcat.helper.study.data.StudyListItemData
 import com.loopcat.helper.ui.list.ListItemDueDate
-import com.loopcat.helper.utils.calculateTheDate
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray400
 import com.loopcat.helper.ui.theme.Gray600
-import com.loopcat.helper.ui.theme.Main100
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.dropShadow
