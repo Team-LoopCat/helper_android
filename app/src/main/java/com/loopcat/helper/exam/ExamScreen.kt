@@ -28,8 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.R
-import com.loopcat.helper.exam.data.ExaminationData
-import com.loopcat.helper.exam.data.PerformanceAssessmentData
+import com.loopcat.helper.exam.data.ExaminationListItemData
+import com.loopcat.helper.exam.data.PerformanceAssessmentListItemData
 import com.loopcat.helper.ui.HelperTopBar
 import com.loopcat.helper.ui.list.exam.ExaminationListItem
 import com.loopcat.helper.ui.list.exam.PerformanceAssessmentListItem
@@ -43,10 +43,10 @@ fun ExamScreen(
     modifier: Modifier = Modifier
 ) {
     val examList = listOf(
-        ExaminationData(UUID.randomUUID(), "2024-03-20", "과목", "선생님", 1, 20, 35)
+        ExaminationListItemData(UUID.randomUUID(), "2024-03-20", "과목", "선생님", 1, 20, 35)
     )
     val performanceList = listOf(
-        PerformanceAssessmentData(UUID.randomUUID(), "제목", "과목", "2025-12-30")
+        PerformanceAssessmentListItemData(UUID.randomUUID(), "제목", "과목", "2025-12-30")
     )
 
     var isExamination by remember { mutableStateOf(false) }

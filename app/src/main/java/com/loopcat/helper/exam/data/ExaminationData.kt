@@ -2,7 +2,7 @@ package com.loopcat.helper.exam.data
 
 import java.util.UUID
 
-data class ExaminationData(
+data class ExaminationListItemData(
     val examDataId: UUID,
     val date: String,
     val subject: String,

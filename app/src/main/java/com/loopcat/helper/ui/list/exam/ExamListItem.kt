@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.loopcat.helper.exam.data.ExaminationData
-import com.loopcat.helper.exam.data.PerformanceAssessmentData
+import com.loopcat.helper.exam.data.ExaminationListItemData
+import com.loopcat.helper.exam.data.PerformanceAssessmentListItemData
 import com.loopcat.helper.ui.list.ListItemDueDate
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray600
@@ -34,7 +34,7 @@ import com.loopcat.helper.utils.calculateDayOfWeek
 @Composable
 fun ExaminationListItem(
     modifier: Modifier = Modifier,
-    examItemData: ExaminationData
+    examItemData: ExaminationListItemData
 ) {
     ExamListItem(
         title = examItemData.subject,
@@ -50,7 +50,7 @@ fun ExaminationListItem(
 @Composable
 fun PerformanceAssessmentListItem(
     modifier: Modifier = Modifier,
-    examItemData: PerformanceAssessmentData
+    examItemData: PerformanceAssessmentListItemData
 ) {
     ExamListItem(
         title = examItemData.title, 
