@@ -23,7 +23,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +45,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.loopcat.helper.R
 import com.loopcat.helper.ui.InputPlaceHolder
 import com.loopcat.helper.ui.theme.Black
@@ -261,6 +262,7 @@ fun ProfileModify(
             }
         }
     }
+
     Box(
         modifier = modifier
             .size(120.dp)
@@ -269,9 +271,13 @@ fun ProfileModify(
             }
     ) {
         AsyncImage(
-            model = imageUrl.takeIf { it.isNotEmpty() } ?: R.drawable.default_profile,
+            model = ImageRequest.Builder(context)
+                .data(imageUrl)
+                .crossfade(true)
+                .build(),
             contentDescription = "Profile Image",
             error = painterResource(id = R.drawable.default_profile),
+            placeholder = painterResource(id = R.drawable.default_profile),
             modifier = modifier
                 .fillMaxSize()
                 .align(Alignment.Center)

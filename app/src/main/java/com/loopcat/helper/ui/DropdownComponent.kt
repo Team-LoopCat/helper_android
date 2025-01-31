@@ -55,7 +55,7 @@ private val dropdownAnimationSpec = tween<IntSize>(
 )
 
 @Composable
-fun LargeDropdownHeader(
+private fun LargeDropdownHeader(
     modifier: Modifier = Modifier,
     isCategory: Boolean,
     selectedOption: String,
@@ -117,7 +117,7 @@ fun LargeDropdownHeader(
 }
 
 @Composable
-fun LargeDropdownMenuItem(
+private fun LargeDropdownMenuItem(
     modifier: Modifier = Modifier,
     option: String,
     onOptionClick: () -> Unit
@@ -146,7 +146,7 @@ fun LargeDropdownMenuItem(
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
-fun LargeDropdownMenuContent(
+private fun LargeDropdownMenuContent(
     modifier: Modifier = Modifier,
     isExpanded: Boolean,
     options: List<String>,
@@ -199,7 +199,7 @@ fun LargeDropdownMenuContent(
 
 
 @Composable
-fun LargeDropdownMenu(
+private fun LargeDropdownMenu(
     isExpanded: Boolean,
     offset: IntOffset,
     options: List<String>,
@@ -270,7 +270,7 @@ fun LargeDropdown(
 }
 
 @Composable
-fun SmallDropdownHeader(
+private fun SmallDropdownHeader(
     modifier: Modifier = Modifier,
     selectedOption: String,
     isExpanded: Boolean,
@@ -332,7 +332,7 @@ fun SmallDropdownHeader(
 }
 
 @Composable
-fun SmallDropdownMenuItem(
+private fun SmallDropdownMenuItem(
     modifier: Modifier = Modifier,
     option: String,
     onOptionClick: () -> Unit
@@ -361,7 +361,7 @@ fun SmallDropdownMenuItem(
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
-fun SmallDropdownMenuContent(
+private fun SmallDropdownMenuContent(
     modifier: Modifier = Modifier,
     isExpanded: Boolean,
     options: List<String>,
@@ -409,7 +409,7 @@ fun SmallDropdownMenuContent(
 }
 
 @Composable
-fun SmallDropdownMenu(
+private fun SmallDropdownMenu(
     isExpanded: Boolean,
     offset: IntOffset,
     options: List<String>,
