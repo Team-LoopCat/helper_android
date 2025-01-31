@@ -18,3 +18,18 @@ fun calculateDueDate(date: String): Long {
 
     return (endDate - today) / (24 * 60 * 60 * 1000)
 }
+
+@SuppressLint("SimpleDateFormat")
+fun calculateDate(date: String): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+    val parseDate = dateFormat.parse(date) ?: date
+    return dateFormat.format(parseDate)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun calculateDayOfWeek(date: String): String {
+    val targetDateFormat = SimpleDateFormat("yyyy-MM-dd (E)")
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+    val parseDate = dateFormat.parse(date) ?: date
+    return targetDateFormat.format(parseDate)
+}
