@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.R
 import com.loopcat.helper.study.data.StudyListItemData
+import com.loopcat.helper.ui.list.ListItemDueDate
 import com.loopcat.helper.utils.calculateTheDate
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray400
@@ -74,7 +75,7 @@ fun StudyListItem(
             start = noticeItemData.start, 
             end = noticeItemData.end
         )
-        StudyItemDueDate(
+        ListItemDueDate(
             modifier = modifier.align(Alignment.TopEnd),
             date = noticeItemData.date
         )
@@ -144,34 +145,6 @@ private fun StudyItemContent(
             )
         )
     }
-}
-
-@Composable
-private fun StudyItemDueDate(
-    modifier: Modifier = Modifier,
-    date: String
-) {
-    Text(
-        modifier = modifier
-            .width(64.dp)
-            .wrapContentHeight()
-            .background(
-                color = Main100,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(
-                top = 3.dp,
-                bottom = 3.dp
-            ),
-        text = "D-${calculateTheDate(date)}",
-        style = TextStyle(
-            fontFamily = Pretendard,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 12.sp,
-            color = Black
-        ),
-        textAlign = TextAlign.Center
-    )
 }
 
 @Composable
