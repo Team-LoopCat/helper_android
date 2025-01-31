@@ -1,4 +1,4 @@
-package com.loopcat.helper.ui.notice
+package com.loopcat.helper.ui.list.notice
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.loopcat.helper.study.data
+package com.loopcat.helper.utils
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
