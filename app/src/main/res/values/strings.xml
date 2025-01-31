@@ -72,4 +72,8 @@
     <string name="change_password">새 비밀번호 (8 ~ 20자)</string>
     <string name="password_modify_fail">비밀번호 수정에 실패하였습니다</string>
     <string name="password_modify_success">비밀번호 수정이 완료되었습니다</string>
+    
+    <string name="exam">평가일정</string>
+    <string name="exam_performance_assessment">수행평가</string>
+    <string name="exam_examination">지필고사</string>
 </resources>
