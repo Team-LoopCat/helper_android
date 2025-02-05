@@ -33,3 +33,11 @@ fun calculateDayOfWeek(date: String): String {
     val parseDate = dateFormat.parse(date) ?: date
     return targetDateFormat.format(parseDate)
 }
+
+fun getThisSchoolYear(): Int {
+    val calendar = Calendar.getInstance()
+    if (calendar.get(Calendar.MONTH) <= 2) {
+        return calendar.get(Calendar.YEAR) - 1
+    }
+    return calendar.get(Calendar.YEAR)
+}
