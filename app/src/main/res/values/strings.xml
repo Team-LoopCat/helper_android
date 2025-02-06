@@ -84,4 +84,6 @@
     <string name="exam_examination_content">시험 범위</string>
     <string name="exam_end_date">제출 마감일</string>
     <string name="exam_performance_content">수행평가 설명</string>
+    <string name="exam_mid_exam">중간고사</string>
+    <string name="exam_final_exam">기말고사</string>
 </resources>

@@ -2,39 +2,20 @@ package com.loopcat.helper.exam
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.loopcat.helper.R
 import com.loopcat.helper.exam.data.ExaminationData
 import com.loopcat.helper.ui.HelperTopBar
-import com.loopcat.helper.ui.theme.Black
-import com.loopcat.helper.ui.theme.Gray700
-import com.loopcat.helper.ui.theme.Main
-import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.utils.calculateDayOfWeek
+import com.loopcat.helper.utils.getThisExamination
 import com.loopcat.helper.utils.getThisSchoolYear
-import java.util.Calendar
-import java.util.Date
 import java.util.UUID
 
-@Preview
 @Composable
 fun ExaminationScreen(modifier: Modifier = Modifier) {
     val labelList = listOf(
@@ -69,7 +50,7 @@ fun ExaminationScreen(modifier: Modifier = Modifier) {
             }
         )
         ExamInfo(
-            description = "${getThisSchoolYear()}학년도",
+            description = "${getThisSchoolYear()}학년도 " + stringResource(id = getThisExamination()),
             title = examinationData.subject,
             labelList = labelList,
             valueList = listOf(

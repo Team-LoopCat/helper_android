@@ -1,6 +1,9 @@
 package com.loopcat.helper.utils
 
 import android.annotation.SuppressLint
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.loopcat.helper.R
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Calendar
@@ -41,5 +44,14 @@ fun getThisSchoolYear(): Int {
         date.year - 1
     } else {
         date.year
+    }
+}
+
+fun getThisExamination(): Int {
+    val thisMonth = LocalDate.now().monthValue
+    return if (thisMonth in 3..5 || thisMonth in 9..10) {
+        R.string.exam_mid_exam
+    } else {
+        R.string.exam_final_exam
     }
 }
