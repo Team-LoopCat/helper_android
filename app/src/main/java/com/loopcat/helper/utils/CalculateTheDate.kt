@@ -2,6 +2,7 @@ package com.loopcat.helper.utils
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
 
 @SuppressLint("SimpleDateFormat")
@@ -35,9 +36,10 @@ fun calculateDayOfWeek(date: String): String {
 }
 
 fun getThisSchoolYear(): Int {
-    val calendar = Calendar.getInstance()
-    if (calendar.get(Calendar.MONTH) <= 2) {
-        return calendar.get(Calendar.YEAR) - 1
+    val date = LocalDate.now()
+    return if (date.monthValue < 3) {
+        date.year - 1
+    } else {
+        date.year
     }
-    return calendar.get(Calendar.YEAR)
 }
