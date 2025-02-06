@@ -1,41 +1,36 @@
 package com.loopcat.helper.utils
 
-import android.annotation.SuppressLint
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
+import android.util.Log
 import com.loopcat.helper.R
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.Calendar
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
-@SuppressLint("SimpleDateFormat")
 fun calculateDueDate(date: String): Long {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-    val parseDate = dateFormat.parse(date) ?: return 0
-    val endDate = parseDate.time
-    val today = Calendar.getInstance().apply {
-        set(Calendar.HOUR_OF_DAY, 0)
-        set(Calendar.MINUTE, 0)
-        set(Calendar.SECOND, 0)
-        set(Calendar.MILLISECOND, 0)
-    }.time.time
-
-    return (endDate - today) / (24 * 60 * 60 * 1000)
+    val endDate = LocalDate.parse(date)
+    val today = LocalDate.now()
+    return ChronoUnit.DAYS.between(today, endDate)
 }
 
-@SuppressLint("SimpleDateFormat")
 fun calculateDate(date: String): String {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-    val parseDate = dateFormat.parse(date) ?: date
-    return dateFormat.format(parseDate)
+    return try {
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return LocalDate.parse(date).format(dateFormat)
+    } catch (e: Exception) {
+        Log.e("calculateDate", e.message.toString())
+        date
+    }
 }
 
-@SuppressLint("SimpleDateFormat")
 fun calculateDayOfWeek(date: String): String {
-    val targetDateFormat = SimpleDateFormat("yyyy-MM-dd (E)")
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-    val parseDate = dateFormat.parse(date) ?: date
-    return targetDateFormat.format(parseDate)
+    return try {
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val dayDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd (E)")
+        LocalDate.parse(date, dateFormat).format(dayDateFormat)
+    } catch (e: Exception) {
+        Log.e("calculateDayOfWeek", e.message.toString())
+        date
+    }
 }
 
 fun getThisSchoolYear(): Int {
