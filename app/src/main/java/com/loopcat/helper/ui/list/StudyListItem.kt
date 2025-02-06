@@ -1,4 +1,4 @@
-package com.loopcat.helper.ui.list.notice
+package com.loopcat.helper.ui.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.R
 import com.loopcat.helper.study.data.StudyListItemData
-import com.loopcat.helper.ui.list.ListItemDueDate
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray400
 import com.loopcat.helper.ui.theme.Gray600

@@ -1,4 +1,4 @@
-package com.loopcat.helper.ui.list.exam
+package com.loopcat.helper.ui.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.loopcat.helper.exam.data.ExaminationListItemData
 import com.loopcat.helper.exam.data.PerformanceAssessmentListItemData
-import com.loopcat.helper.ui.list.ListItemDueDate
 import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray600
 import com.loopcat.helper.ui.theme.Main

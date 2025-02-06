@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.loopcat.helper.R
 import com.loopcat.helper.study.data.StudyListItemData
 import com.loopcat.helper.ui.HelperTopBar
-import com.loopcat.helper.ui.list.notice.StudyListItem
+import com.loopcat.helper.ui.list.StudyListItem
 import com.loopcat.helper.ui.theme.White
 import java.util.UUID
 

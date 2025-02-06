@@ -31,8 +31,8 @@ import com.loopcat.helper.R
 import com.loopcat.helper.exam.data.ExaminationListItemData
 import com.loopcat.helper.exam.data.PerformanceAssessmentListItemData
 import com.loopcat.helper.ui.HelperTopBar
-import com.loopcat.helper.ui.list.exam.ExaminationListItem
-import com.loopcat.helper.ui.list.exam.PerformanceAssessmentListItem
+import com.loopcat.helper.ui.list.ExaminationListItem
+import com.loopcat.helper.ui.list.PerformanceAssessmentListItem
 import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
