@@ -3,6 +3,7 @@ package com.loopcat.helper.ui.list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -72,27 +73,16 @@ private fun ExamListItem(
     onClick: () -> Unit
 ) {
     Box (
-        modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp,
-                bottom = 10.dp,
-                top = 4.dp
-            )
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .dropShadow()
-            .clip(RoundedCornerShape(8.dp))
-            .background(White)
-            .padding(
+        modifier = listItemBoxModifier(
+            PaddingValues(
                 start = 20.dp,
                 end = 16.dp,
                 top = 18.dp,
                 bottom = 18.dp
             )
-            .noRippleClickable {
-                onClick()
-            }
+        ).noRippleClickable {
+            onClick()
+        }
     ) {
         ExamItemContent(
             modifier = modifier.align(Alignment.TopStart),
