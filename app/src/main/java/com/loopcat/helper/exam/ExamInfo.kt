@@ -46,10 +46,10 @@ fun ExamInfo(
             title = title
         )
         Spacer(modifier = modifier.height(30.dp))
-        for (i in 0 until lastIndex) {
+        labelList.take(lastIndex).forEachIndexed { index, label ->
             ExamInfoItem(
-                label = stringResource(labelList[i]),
-                value = valueList[i]
+                label = stringResource(id = label),
+                value = valueList[index]
             )
         }
         ExamInfoContent(
