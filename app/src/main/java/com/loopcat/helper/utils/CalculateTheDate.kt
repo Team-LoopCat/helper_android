@@ -7,9 +7,14 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 fun calculateDueDate(date: String): Long {
-    val endDate = LocalDate.parse(date)
-    val today = LocalDate.now()
-    return ChronoUnit.DAYS.between(today, endDate)
+    return try {
+        val endDate = LocalDate.parse(date)
+        val today = LocalDate.now()
+        ChronoUnit.DAYS.between(today, endDate)
+    } catch (e: Exception) {
+        Log.e("calculateDueDate", e.message.toString())
+        0
+    }
 }
 
 fun calculateDate(date: String): String {
