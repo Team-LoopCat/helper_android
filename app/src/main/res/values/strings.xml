@@ -63,6 +63,7 @@
     <string name="is_out_of_membership_description">탈퇴 후 되돌릴 수 없습니다</string>
 
     <string name="complete_modify">수정하기</string>
+    <string name="file">첨부 파일</string>
     
     <string name="is_profile_modify">프로필을 수정하시겠습니까?</string>
     <string name="profile_modify_fail">프로필 수정에 실패하였습니다</string>
@@ -72,4 +73,17 @@
     <string name="change_password">새 비밀번호 (8 ~ 20자)</string>
     <string name="password_modify_fail">비밀번호 수정에 실패하였습니다</string>
     <string name="password_modify_success">비밀번호 수정이 완료되었습니다</string>
+    
+    <string name="exam">평가일정</string>
+    <string name="exam_performance_assessment">수행평가</string>
+    <string name="exam_examination">지필고사</string>
+    <string name="exam_teacher">담당 선생님</string>
+    <string name="exam_datetime">시험 시간</string>
+    <string name="exam_problem">문제 개수</string>
+    <string name="exam_percent">반영 비율</string>
+    <string name="exam_examination_content">시험 범위</string>
+    <string name="exam_end_date">제출 마감일</string>
+    <string name="exam_performance_content">수행평가 설명</string>
+    <string name="exam_mid_exam">중간고사</string>
+    <string name="exam_final_exam">기말고사</string>
 </resources>

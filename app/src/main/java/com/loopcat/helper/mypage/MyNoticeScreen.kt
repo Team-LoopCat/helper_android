@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.loopcat.helper.R
 import com.loopcat.helper.community.data.CommunityListItemData
-import com.loopcat.helper.ui.notice.CommunityListItem
+import com.loopcat.helper.ui.list.CommunityListItem
 import com.loopcat.helper.ui.HelperTopBar
 import com.loopcat.helper.ui.theme.White
 import java.util.UUID

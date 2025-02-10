@@ -1,8 +1,11 @@
 package com.loopcat.helper.ui.utills
 
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -44,3 +47,12 @@ fun <T> singleClickEvent(
     return result
 }
 
+fun Modifier.singleClickable(
+    onClick: () -> Unit
+) = composed {
+    singleClickEvent { manager ->
+        clickable(
+            onClick = { manager.event { onClick() } }
+        )
+    }
+}
