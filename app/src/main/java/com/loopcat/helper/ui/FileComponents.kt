@@ -35,6 +35,8 @@ import com.loopcat.helper.ui.theme.Gray100
 import com.loopcat.helper.ui.theme.Gray700
 import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.utills.noRippleClickable
+import com.loopcat.helper.ui.utills.singleClickEvent
+import com.loopcat.helper.ui.utills.singleClickable
 import com.loopcat.helper.utils.FileData
 
 @Composable
@@ -49,7 +51,7 @@ private fun DownloadFileItem(
     Row (
         modifier = modifier
             .fillMaxWidth()
-            .noRippleClickable {
+            .singleClickable {
                 val request = DownloadManager
                     .Request(Uri.parse(fileUrl))
                     .setTitle(fileName)
