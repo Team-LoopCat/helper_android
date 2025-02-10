@@ -1,6 +1,5 @@
 package com.loopcat.helper.ui.list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,12 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,8 +22,6 @@ import com.loopcat.helper.ui.theme.Black
 import com.loopcat.helper.ui.theme.Gray600
 import com.loopcat.helper.ui.theme.Main
 import com.loopcat.helper.ui.theme.Pretendard
-import com.loopcat.helper.ui.theme.White
-import com.loopcat.helper.ui.utills.dropShadow
 import com.loopcat.helper.ui.utills.noRippleClickable
 import com.loopcat.helper.utils.calculateDate
 import com.loopcat.helper.utils.calculateDayOfWeek
