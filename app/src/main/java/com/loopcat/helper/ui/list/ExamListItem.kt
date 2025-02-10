@@ -73,16 +73,18 @@ private fun ExamListItem(
     onClick: () -> Unit
 ) {
     Box (
-        modifier = listItemBoxModifier(
-            PaddingValues(
-                start = 20.dp,
-                end = 16.dp,
-                top = 18.dp,
-                bottom = 18.dp
+        modifier = modifier
+            .listItemBoxModifier(
+                PaddingValues(
+                    start = 20.dp,
+                    end = 16.dp,
+                    top = 18.dp,
+                    bottom = 18.dp
+                )
             )
-        ).noRippleClickable {
-            onClick()
-        }
+            .noRippleClickable {
+                onClick()
+            }
     ) {
         ExamItemContent(
             modifier = modifier.align(Alignment.TopStart),

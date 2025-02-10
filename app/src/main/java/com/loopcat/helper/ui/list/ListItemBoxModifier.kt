@@ -1,6 +1,5 @@
 package com.loopcat.helper.ui.list
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,21 +12,18 @@ import androidx.compose.ui.unit.dp
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.dropShadow
 
-@SuppressLint("ModifierFactoryExtensionFunction")
-fun listItemBoxModifier(
+fun Modifier.listItemBoxModifier (
     innerPadding: PaddingValues
-): Modifier {
-    return Modifier
-        .padding(
-            start = 30.dp,
-            end = 30.dp,
-            bottom = 10.dp,
-            top = 4.dp
-        )
-        .fillMaxWidth()
-        .wrapContentHeight()
-        .dropShadow()
-        .clip(RoundedCornerShape(8.dp))
-        .background(White)
-        .padding(innerPadding)
-}
+): Modifier = this
+    .padding(
+        start = 30.dp,
+        end = 30.dp,
+        top = 4.dp,
+        bottom = 10.dp
+    )
+    .fillMaxWidth()
+    .wrapContentHeight()
+    .dropShadow()
+    .clip(RoundedCornerShape(8.dp))
+    .background(White)
+    .padding(innerPadding)

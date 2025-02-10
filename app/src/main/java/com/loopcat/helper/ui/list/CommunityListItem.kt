@@ -39,16 +39,18 @@ fun CommunityListItem(
     onClick: () -> Unit
 ) {
     Box (
-        modifier = listItemBoxModifier(
-            PaddingValues(
-                start = 16.dp,
-                end = 16.dp,
-                top = 16.dp,
-                bottom = 12.dp
+        modifier = modifier
+            .listItemBoxModifier(
+                PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 16.dp,
+                    bottom = 12.dp
+                )
             )
-        ).noRippleClickable {
-            onClick()
-        }
+            .noRippleClickable {
+                onClick()
+            }
     ) {
         CommunityItemContent(
             modifier = modifier.align(Alignment.TopStart),
