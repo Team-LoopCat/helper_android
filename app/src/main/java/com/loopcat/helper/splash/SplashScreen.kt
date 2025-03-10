@@ -25,10 +25,12 @@ import com.loopcat.helper.ui.HelperAlertDialog
 import com.loopcat.helper.ui.theme.White
 import kotlinx.coroutines.delay
 
+const val NAVIGATION_SPLASH = "splash"
+
 @Composable
 fun HelperSplashScreen(
     modifier: Modifier = Modifier,
-    navToMain: () -> Unit
+    navToLogin: () -> Unit
 ) {
     val alpha = remember { Animatable(0f) }
     var isException by remember { mutableStateOf(false) }
@@ -41,7 +43,7 @@ fun HelperSplashScreen(
         delay(1000L)
 
         try {
-            navToMain()
+            navToLogin()
         } catch (e: Exception) {
             println(e.message)
             isException = true

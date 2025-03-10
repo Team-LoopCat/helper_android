@@ -1,5 +1,6 @@
 package com.loopcat.helper.signup
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,11 +30,19 @@ import com.loopcat.helper.ui.auth.checkRegex
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.addFocusCleaner
 
+const val NAVIGATION_SIGNUP = "signUp"
+
 @Composable
 fun SignupScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNext: () -> Unit,
+    onBack: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
+
+    BackHandler {
+        onBack()
+    }
 
     var id by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
@@ -63,7 +72,7 @@ fun SignupScreen(
             modifier = modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = modifier.height(140.dp))
+            Spacer(modifier = modifier.height(100.dp))
             AuthTitle(text = stringResource(id = R.string.signup))
             Spacer(modifier = modifier.height(60.dp))
             HelperInput(
@@ -100,10 +109,10 @@ fun SignupScreen(
                 hint = stringResource(id = R.string.signup_pw_check),
                 onValueChange = { input ->
                     pwCheck = input
-                    if (pw != pwCheck) {
-                        pwCheckError = AuthErrorType.NOT_SAME_PW
+                    pwCheckError = if (pw != pwCheck) {
+                        AuthErrorType.NOT_SAME_PW
                     } else {
-                        pwCheckError = AuthErrorType.NONE
+                        AuthErrorType.NONE
                     }
                 }
             )
@@ -115,7 +124,7 @@ fun SignupScreen(
             buttonText = stringResource(id = R.string.signup_next),
             onClick = {
                 // 아이디 중복 확인
-                // 다음 화면으로 이동
+                onNext()
             }
         )
     }

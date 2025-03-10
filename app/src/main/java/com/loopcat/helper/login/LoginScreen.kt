@@ -38,8 +38,13 @@ import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.addFocusCleaner
 
+const val NAVIGATION_LOGIN = "login"
+
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    navToSignUp: () -> Unit
+) {
     val focusManager = LocalFocusManager.current
 
     var id by remember { mutableStateOf("") }
@@ -64,7 +69,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             modifier = modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = modifier.height(140.dp))
+            Spacer(modifier = modifier.height(100.dp))
             AuthTitle(text = stringResource(id = R.string.login))
             Spacer(modifier = modifier.height(60.dp))
             HelperInput(
@@ -104,9 +109,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 }
             )
             NotMember(
-                onClick = {
-                    // 회원가입 화면으로 이동
-                }
+                onClick = navToSignUp
             )
         }
     }
