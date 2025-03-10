@@ -1,6 +1,7 @@
 package com.loopcat.helper.signup
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -53,12 +54,20 @@ import com.loopcat.helper.ui.utills.addFocusCleaner
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+const val NAVIGATION_SIGNUP_MAIL = "signUpMail"
+
 @Composable
 fun SignupMailScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNext: () -> Unit,
+    onBack: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     val scope = rememberCoroutineScope()
+
+    BackHandler {
+        onBack()
+    }
 
     var mail by remember { mutableStateOf("") }
     var mailError by remember { mutableStateOf(AuthErrorType.NONE) }
@@ -91,7 +100,7 @@ fun SignupMailScreen(
             modifier = modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = modifier.height(140.dp))
+            Spacer(modifier = modifier.height(100.dp))
             AuthTitle(text = stringResource(id = R.string.signup))
             Spacer(modifier = modifier.height(60.dp))
             SmallInputWithButton(
@@ -140,6 +149,8 @@ fun SignupMailScreen(
                     codeError = AuthErrorType.MAIL_MODIFY
                 } else if (codeTime == 0) {
                     codeError = AuthErrorType.CODE_TIMEOUT
+                } else {
+                    onNext()
                 }
             }
         )

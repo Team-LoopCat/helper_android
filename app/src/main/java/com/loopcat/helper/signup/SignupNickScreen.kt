@@ -49,8 +49,13 @@ import com.loopcat.helper.ui.theme.Pretendard
 import com.loopcat.helper.ui.theme.White
 import com.loopcat.helper.ui.utills.addFocusCleaner
 
+const val NAVIGATION_SIGNUP_NICK = "signUpNick"
+
 @Composable
-fun SignupNickScreen(modifier: Modifier = Modifier) {
+fun SignupNickScreen(
+    modifier: Modifier = Modifier,
+    onBack: () -> Unit
+) {
     val focusManager = LocalFocusManager.current
 
     var imageUrl by remember { mutableStateOf("") }
