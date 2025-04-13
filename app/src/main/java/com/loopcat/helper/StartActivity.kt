@@ -1,20 +1,15 @@
-package com.loopcat.helper.auth
+package com.loopcat.helper
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
-import com.loopcat.helper.MainActivity
-import com.loopcat.helper.auth.splash.HelperSplashScreen
-import com.loopcat.helper.auth.splash.viewmodel.SplashViewModel
+import com.loopcat.helper.splash.HelperSplashScreen
 import com.loopcat.helper.navigation.AuthNavigation
-import com.loopcat.helper.ui.theme.HelperTheme
 
 @SuppressLint("CustomSplashScreen")
-class AuthActivity : ComponentActivity() {
+class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

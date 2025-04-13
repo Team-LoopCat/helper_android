@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Helper"
         tools:targetApi="31" >
         <activity
-            android:name=".auth.AuthActivity"
+            android:name=".StartActivity"
             android:exported="true"
             android:theme="@style/Theme.Helper">
             <intent-filter>
