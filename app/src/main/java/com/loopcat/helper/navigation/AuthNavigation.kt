@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.loopcat.helper.login.LoginScreen
 import com.loopcat.helper.login.NAVIGATION_LOGIN
 import com.loopcat.helper.signup.NAVIGATION_SIGNUP
@@ -12,30 +13,22 @@ import com.loopcat.helper.signup.NAVIGATION_SIGNUP_NICK
 import com.loopcat.helper.signup.SignupMailScreen
 import com.loopcat.helper.signup.SignupNickScreen
 import com.loopcat.helper.signup.SignupScreen
-import com.loopcat.helper.splash.HelperSplashScreen
-import com.loopcat.helper.splash.NAVIGATION_SPLASH
 
 @Composable
 fun AuthNavigation(
-    navController: NavHostController
+    navController: NavHostController = rememberNavController(),
+    navToMain: () -> Unit
 ) {
     NavHost(
         navController = navController,
-        startDestination = NAVIGATION_SPLASH
+        startDestination = NAVIGATION_LOGIN
     ) {
-        composable(NAVIGATION_SPLASH) {
-            HelperSplashScreen(
-                navToLogin = {
-                    navController.navigate(NAVIGATION_LOGIN)
-                }
-            )
-        }
-
         composable(NAVIGATION_LOGIN) {
             LoginScreen(
                 navToSignUp = {
                     navController.navigate(NAVIGATION_SIGNUP)
-                }
+                },
+                navToMain = navToMain
             )
         }
 
