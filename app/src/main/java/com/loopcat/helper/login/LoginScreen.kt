@@ -12,11 +12,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -25,7 +24,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.loopcat.helper.R
+import com.loopcat.helper.login.viewmodel.LoginViewModel
 import com.loopcat.helper.ui.HelperButton
 import com.loopcat.helper.ui.HelperInput
 import com.loopcat.helper.ui.HelperPasswordInput
@@ -43,19 +44,29 @@ const val NAVIGATION_LOGIN = "login"
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navToSignUp: () -> Unit
+    viewModel: LoginViewModel = hiltViewModel(),
+    navToSignUp: () -> Unit,
+    navToMain: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
-    var id by remember { mutableStateOf("") }
-    var pw by remember { mutableStateOf("") }
+    val id = viewModel.id
+    val pw = viewModel.pw
 
-    var showError by remember { mutableStateOf(AuthErrorType.NONE) }
+    val isLoading = viewModel.isLoading
+    val isLoginSuccess = viewModel.isLoginSuccess
 
     val buttonEnable by remember(id, pw) {
         derivedStateOf {
+            !isLoading &&
             id.isNotEmpty() &&
             pw.isNotEmpty()
+        }
+    }
+
+    if (isLoginSuccess == true) {
+        LaunchedEffect(Unit) {
+            navToMain()
         }
     }
 
@@ -76,18 +87,18 @@ fun LoginScreen(
                 input = id,
                 hint = stringResource(id = R.string.login_id),
                 onValueChange = { input ->
-                    id = input
+                    viewModel.onIdChange(input)
                 }
             )
-            AuthErrorMessage(errorType = AuthErrorType.WRONG_ID_OR_PW)
+            AuthErrorMessage(errorType = AuthErrorType.NONE)
             HelperPasswordInput(
                 input = pw,
                 hint = stringResource(id = R.string.login_pw),
                 onValueChange = { input ->
-                    pw = input
+                    viewModel.onPwChange(input)
                 }
             )
-            AuthErrorMessage(errorType = showError)
+            AuthErrorMessage(errorType = if (isLoginSuccess == false) AuthErrorType.WRONG_ID_OR_PW else AuthErrorType.NONE)
         }
         Column(
             modifier = modifier
@@ -105,7 +116,7 @@ fun LoginScreen(
                 enable = buttonEnable,
                 buttonText = stringResource(id = R.string.login),
                 onClick = {
-                    // 로그인 서버 통신
+                    viewModel.onLoginClick()
                 }
             )
             NotMember(
@@ -113,6 +124,7 @@ fun LoginScreen(
             )
         }
     }
+
 }
 
 @Composable
