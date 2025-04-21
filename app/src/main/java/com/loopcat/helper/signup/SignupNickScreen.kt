@@ -1,5 +1,7 @@
 package com.loopcat.helper.signup
 
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -25,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -33,7 +36,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.loopcat.helper.R
+import com.loopcat.helper.signup.viewmodel.SignupViewModel
 import com.loopcat.helper.ui.HelperButton
 import com.loopcat.helper.ui.InputPlaceHolder
 import com.loopcat.helper.ui.auth.AuthErrorMessage
@@ -54,19 +59,25 @@ const val NAVIGATION_SIGNUP_NICK = "signUpNick"
 @Composable
 fun SignupNickScreen(
     modifier: Modifier = Modifier,
-    onBack: () -> Unit
+    viewModel: SignupViewModel = hiltViewModel(),
+    onBack: () -> Unit,
+    navToLogin: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
-    var profileImageUrl by remember { mutableStateOf("") }
-    var grade by remember { mutableStateOf("") }
-    var classNumber by remember { mutableStateOf("") }
-    var studentNumber by remember { mutableStateOf("") }
-    var nickname by remember { mutableStateOf("") }
-    var sendNick by remember { mutableStateOf("") }
+    BackHandler {
+        onBack()
+    }
 
-    var nickError by remember { mutableStateOf(AuthErrorType.NONE) }
+    val profileImageUrl = viewModel.profileImage
+    val grade = viewModel.grade
+    val classNumber = viewModel.classroom
+    val studentNumber = viewModel.studentNumber
+    val nickname = viewModel.nickname
+    val sendNick = viewModel.sendNick
 
+    val nickError = viewModel.nickError
     val schoolInfoError = if (grade.isNotEmpty() && grade.toIntOrNull() !in 1..3) {
         AuthErrorType.GRADE_REGEX
     } else if (classNumber.isNotEmpty() && classNumber.toIntOrNull() !in 1..4) {
@@ -77,14 +88,21 @@ fun SignupNickScreen(
         AuthErrorType.NONE
     }
 
-    val smallButtonEnable by remember(nickname, nickError) {
+    val isLoading = viewModel.isLoading
+    val isCheckDuplicateNick = viewModel.isCheckDuplicateNick
+    val isSignUpSuccess = viewModel.isSignUpSuccess
+
+    val smallButtonEnable by remember(isLoading, nickname, nickError) {
         derivedStateOf {
+            !isLoading &&
             nickname.isNotEmpty() &&
             nickError != AuthErrorType.NICK_REGEX
         }
     }
-    val buttonEnable by remember(schoolInfoError, sendNick, nickError) {
+    val buttonEnable by remember(isLoading, isCheckDuplicateNick, schoolInfoError, sendNick, nickError) {
         derivedStateOf {
+            !isLoading &&
+            isCheckDuplicateNick &&
             grade.isNotEmpty() &&
             classNumber.isNotEmpty() &&
             studentNumber.isNotEmpty() &&
@@ -93,6 +111,15 @@ fun SignupNickScreen(
             sendNick == nickname &&
             nickError == AuthErrorType.NONE
         }
+    }
+
+    if (isCheckDuplicateNick) {
+        Toast.makeText(context, "사용 가능한 낙네임입니다", Toast.LENGTH_SHORT).show()
+    }
+    if (isSignUpSuccess == true) {
+        navToLogin()
+    } else if (isSignUpSuccess == false) {
+        Toast.makeText(context, "회원가입 실패", Toast.LENGTH_SHORT).show()
     }
 
     Box(
@@ -109,7 +136,7 @@ fun SignupNickScreen(
             ProfileModify(
                 imageUrl = profileImageUrl,
                 onImageSelected = { uri ->
-                    profileImageUrl = uri.toString()
+                    viewModel.onProfileImageChange(uri)
                 }
             )
             Spacer(modifier = modifier.height(60.dp))
@@ -119,17 +146,17 @@ fun SignupNickScreen(
                 studentNumber = studentNumber,
                 onGradeChange = { input ->
                     if (input.isDigitsOnly() && input.length <= 1) {
-                        grade = input
+                        viewModel.onGradeChange(input)
                     }
                 },
                 onClassNumberChange = { input ->
                     if (input.isDigitsOnly() && input.length <= 1) {
-                        classNumber = input
+                        viewModel.onClassroomChange(input)
                     }
                 },
                 onStudentNumberChange = { input ->
                     if (input.isDigitsOnly() && input.length <= 2) {
-                        studentNumber = input
+                        viewModel.onStudentNumberChange(input)
                     }
                 }
             )
@@ -140,16 +167,10 @@ fun SignupNickScreen(
                 enable = smallButtonEnable,
                 buttonText = stringResource(id = R.string.signup_overlap_check),
                 onValueChange = { input ->
-                    nickname = input
-                    nickError = if (!checkRegex(AuthRegexType.NICKNAME, nickname)) {
-                        AuthErrorType.NICK_REGEX
-                    } else {
-                        AuthErrorType.NONE
-                    }
+                    viewModel.onNickChange(input)
                 },
                 onClick = {
-                    // 중복확인 요청
-                    sendNick = nickname
+                    viewModel.onCheckNickDuplicate()
                 }
             )
             AuthErrorMessage(errorType = nickError)
@@ -159,7 +180,7 @@ fun SignupNickScreen(
             enable = buttonEnable, 
             buttonText = stringResource(id = R.string.signup),
             onClick = {
-                // 회원가입
+                viewModel.signUp()
             }
         )
     }

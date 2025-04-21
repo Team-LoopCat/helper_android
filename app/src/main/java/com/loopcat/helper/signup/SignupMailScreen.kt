@@ -35,7 +35,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.loopcat.helper.R
+import com.loopcat.helper.signup.viewmodel.SignupViewModel
 import com.loopcat.helper.ui.HelperButton
 import com.loopcat.helper.ui.InputPlaceHolder
 import com.loopcat.helper.ui.auth.AuthErrorMessage
@@ -60,6 +62,7 @@ const val NAVIGATION_SIGNUP_MAIL = "signUpMail"
 @Composable
 fun SignupMailScreen(
     modifier: Modifier = Modifier,
+    viewModel: SignupViewModel = hiltViewModel(),
     onNext: () -> Unit,
     onBack: () -> Unit
 ) {
@@ -70,23 +73,26 @@ fun SignupMailScreen(
         onBack()
     }
 
-    var mail by remember { mutableStateOf("") }
-    var mailError by remember { mutableStateOf(AuthErrorType.NONE) }
+    val mail = viewModel.email
+    val mailError = viewModel.mailError
 
-    var code by remember { mutableStateOf("") }
+    val code = viewModel.code
     var codeTime by remember { mutableIntStateOf(0) }
-    var codeError by remember { mutableStateOf(AuthErrorType.NONE) }
+    val codeError = viewModel.codeError
 
-    var sendMail by remember { mutableStateOf("") }
-    var isSend by remember { mutableStateOf(false) }
+    val isSendMail = viewModel.isSendMail
+    val isVerifyCode = viewModel.isVerifyCode
+    val isLoading = viewModel.isLoading
 
-    val smallButtonEnable by remember(mailError) {
+    val smallButtonEnable by remember(isLoading, mailError) {
         derivedStateOf {
+            !isLoading &&
             mailError == AuthErrorType.NONE
         }
     }
-    val buttonEnable by remember(code) {
+    val buttonEnable by remember(isLoading, code) {
         derivedStateOf {
+            !isLoading &&
             code.isNotEmpty()
         }
     }
@@ -110,21 +116,17 @@ fun SignupMailScreen(
                 enable = smallButtonEnable,
                 buttonText = stringResource(id = R.string.signup_certify),
                 onValueChange = { input ->
-                    mail = input
-                    mailError = if (!checkRegex(AuthRegexType.MAIL, mail)) {
-                        AuthErrorType.MAIL_REGEX
-                    } else {
-                        AuthErrorType.NONE
-                    }
+                    viewModel.onMailChange(input)
                 },
                 onClick = {
-                    sendMail = mail
-                    isSend = true
-                    codeTime = 300
-                    scope.launch {
-                        while (codeTime > 0) {
-                            delay(1000L)
-                            codeTime--
+                    viewModel.onSendMailClick()
+                    if (isSendMail) {
+                        codeTime = 300
+                        scope.launch {
+                            while (codeTime > 0) {
+                                delay(1000L)
+                                codeTime--
+                            }
                         }
                     }
                 }
@@ -134,8 +136,8 @@ fun SignupMailScreen(
                 input = code,
                 hint = stringResource(id = R.string.signup_code),
                 timeCount = codeTime,
-                onValueChange = { newInput ->
-                    code = newInput
+                onValueChange = { input ->
+                    viewModel.onCodeChange(input)
                 }
             )
             AuthErrorMessage(errorType = codeError)
@@ -145,16 +147,12 @@ fun SignupMailScreen(
             enable = buttonEnable,
             buttonText = stringResource(id = R.string.signup_complete_certify),
             onClick = {
-                // 인증 코드가 일치하는지 확인
-                if (sendMail != mail) {
-                    codeError = AuthErrorType.MAIL_MODIFY
-                } else if (codeTime == 0) {
-                    codeError = AuthErrorType.CODE_TIMEOUT
-                } else {
-                    onNext()
-                }
+                viewModel.onMailNextClick()
             }
         )
+    }
+    if (isVerifyCode) {
+        onNext()
     }
 }
 
