@@ -77,23 +77,22 @@ fun SignupMailScreen(
     val mailError = viewModel.mailError
 
     val code = viewModel.code
-    var codeTime by remember { mutableIntStateOf(0) }
+    val codeTime = viewModel.codeTime
     val codeError = viewModel.codeError
 
-    val isSendMail = viewModel.isSendMail
     val isVerifyCode = viewModel.isVerifyCode
     val isLoading = viewModel.isLoading
 
     val smallButtonEnable by remember(isLoading, mailError) {
         derivedStateOf {
             !isLoading &&
-            mailError == AuthErrorType.NONE
+                    mailError == AuthErrorType.NONE
         }
     }
     val buttonEnable by remember(isLoading, code) {
         derivedStateOf {
             !isLoading &&
-            code.isNotEmpty()
+                    code.isNotEmpty()
         }
     }
 
@@ -120,15 +119,7 @@ fun SignupMailScreen(
                 },
                 onClick = {
                     viewModel.onSendMailClick()
-                    if (isSendMail) {
-                        codeTime = 300
-                        scope.launch {
-                            while (codeTime > 0) {
-                                delay(1000L)
-                                codeTime--
-                            }
-                        }
-                    }
+                    viewModel.onStartCodeTimer()
                 }
             )
             AuthErrorMessage(errorType = mailError)

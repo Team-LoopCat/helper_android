@@ -2,6 +2,7 @@ package com.loopcat.helper.signup.viewmodel
 
 import android.net.Uri
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.loopcat.helper.ui.auth.AuthErrorType
 import com.loopcat.helper.ui.auth.AuthRegexType
 import com.loopcat.helper.ui.auth.checkRegex
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,6 +27,7 @@ class SignupViewModel @Inject constructor(
     var email by mutableStateOf("")
     private var sendMail by mutableStateOf("")
     var code by mutableStateOf("")
+    var codeTime by mutableIntStateOf(300)
 
     var grade by mutableStateOf("")
     var classroom by mutableStateOf("")
@@ -44,7 +47,7 @@ class SignupViewModel @Inject constructor(
 
     var isLoading by mutableStateOf(false)
     var isIdValidation by mutableStateOf(false)
-    var isSendMail by mutableStateOf(false)
+    private var isSendMail by mutableStateOf(false)
     var isVerifyCode by mutableStateOf(false)
     var isCheckDuplicateNick by mutableStateOf(false)
     var isSignUpSuccess by mutableStateOf<Boolean?>(false)
@@ -98,12 +101,26 @@ class SignupViewModel @Inject constructor(
             }
         }
     }
+    fun onStartCodeTimer() {
+        if (isSendMail) {
+            viewModelScope.launch {
+                while (codeTime > 0) {
+                    delay(1000L)
+                    codeTime--
+                }
+            }
+        }
+    }
     fun onCodeChange(input: String) {
         code = input
     }
     fun onMailNextClick() {
         if (sendMail != email) {
             mailError = AuthErrorType.MAIL_MODIFY
+            return
+        }
+        if (codeTime <= 0) {
+            mailError = AuthErrorType.CODE_TIMEOUT
             return
         }
         viewModelScope.launch {
@@ -132,6 +149,9 @@ class SignupViewModel @Inject constructor(
     fun onNickChange(input: String) {
         nickname = input
         nickError = if(checkRegex(AuthRegexType.NICKNAME, nickname)) AuthErrorType.NONE else AuthErrorType.NICK_REGEX
+        if (isCheckDuplicateNick) {
+            isCheckDuplicateNick = false
+        }
     }
     fun onProfileImageChange(uri: Uri) {
         profileImage = uri.toString()

@@ -114,7 +114,7 @@ fun SignupNickScreen(
     }
 
     if (isCheckDuplicateNick) {
-        Toast.makeText(context, "사용 가능한 낙네임입니다", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "사용 가능한 닉네임입니다", Toast.LENGTH_SHORT).show()
     }
     if (isSignUpSuccess == true) {
         navToLogin()

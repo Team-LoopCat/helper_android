@@ -24,5 +24,5 @@ interface StudentApi {
     suspend fun checkDuplicateNick(@Path("nickname") nickname: String): Response<Unit>
 
     @POST("/student/signup")
-    suspend fun singUp(@Body request: SignupRequest): Response<Unit>
+    suspend fun signUp(@Body request: SignupRequest): Response<Unit>
 }

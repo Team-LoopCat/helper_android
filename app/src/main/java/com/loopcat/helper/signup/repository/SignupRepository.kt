@@ -77,7 +77,7 @@ class SignupRepository(private val api: StudentApi) {
         profile: String
     ): Result<Unit> {
         return try {
-            val response = api.singUp(
+            val response = api.signUp(
                 SignupRequest(
                     id, password, email,
                     grade, classroom, number,
