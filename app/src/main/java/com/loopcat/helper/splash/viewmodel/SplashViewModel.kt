@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.loopcat.helper.local.AuthPreference
+import com.loopcat.helper.utils.accessToken
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -23,6 +24,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             delay(2000)
             val token = authPreference.getAccessToken()
+            accessToken = token ?: ""
             _isLoggedIn.value = token != null
         }
     }
