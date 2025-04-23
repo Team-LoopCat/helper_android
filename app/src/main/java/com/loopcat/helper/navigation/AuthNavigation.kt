@@ -58,6 +58,11 @@ fun AuthNavigation(
             SignupNickScreen(
                 onBack = {
                     navController.popBackStack()
+                },
+                navToLogin = {
+                    navController.navigate(NAVIGATION_LOGIN) {
+                        popUpTo(NAVIGATION_LOGIN)
+                    }
                 }
             )
         }
