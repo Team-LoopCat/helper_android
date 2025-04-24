@@ -1,5 +1,6 @@
 package com.loopcat.helper.network
 
+import com.loopcat.helper.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,11 +12,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiProvider {
-    private const val BASE_URL = "http://helper.xquare.app"
-
     @Singleton
     private val instance: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

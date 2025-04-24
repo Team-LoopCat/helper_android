@@ -1,9 +1,15 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
+
+val properties = Properties()
+val propertiesFile = project.rootProject.file("local.properties")
+properties.load(propertiesFile.inputStream())
 
 android {
     namespace = "com.loopcat.helper"
@@ -17,6 +23,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        val baseUrl = properties["BASE_URL"]?.toString() ?: ""
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
         vectorDrawables {
             useSupportLibrary = true
         }
